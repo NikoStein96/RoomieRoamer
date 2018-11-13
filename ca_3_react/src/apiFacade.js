@@ -1,28 +1,8 @@
-const URL = "http://localhost:3000/";
+import {headers} from 'react-dom';
 
-setToken = (token) => {
-    localStorage.setItem('jwtToken', token)
-}
+const URL = "http://localhost:8080/jwtBackend";
 
-getToken = () => {
-    return localStorage.getItem('jwtToken')
-}
 
-loggedIn = () => {
-    const loggedIn = this.getToken() != null;
-    return loggedIn;
-}
-
-logout = () => {
-    localStorage.removeItem("jwtToken");
-}
-
-login = (user, pass) => {
-    const options = this.makeOptions("POST", true,{ username: user, password: pass });
-    return fetch(URL + "/api/login", options, true)
-      .then(handleHttpErrors)
-      .then(res => { this.setToken(res.token) })
-}
 
 function handleHttpErrors(res) {
  if (!res.ok) {
@@ -32,7 +12,33 @@ function handleHttpErrors(res) {
 }
 
 class ApiFacade {
+
+    setToken = (token) => {
+        localStorage.setItem('jwtToken', token)
+    }
+    
+    getToken = () => {
+        return localStorage.getItem('jwtToken')
+    }
+    
+    loggedIn = () => {
+        const loggedIn = this.getToken() != null;
+        return loggedIn;
+    }
+    
+    logout = () => {
+        localStorage.removeItem("jwtToken");
+    }
+    
+    login = (user, pass) => {
+        const options = this.makeOptions("POST", true,{ username: user, password: pass });
+        return fetch(URL + "/api/login", options, true)
+          .then(handleHttpErrors)
+          .then(res => { this.setToken(res.token) })
+    }
  makeOptions(method,addToken,body) {
+
+    
    var opts = {
      method: method,
      headers: {
