@@ -1,6 +1,6 @@
 import {headers} from 'react-dom';
 
-const URL = "http://localhost:8080/jwtBackend";
+const URL = "http://localhost:8080/jwtbackend";
 
 
 
