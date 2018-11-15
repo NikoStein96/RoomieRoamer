@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
 
 /**
  *
@@ -18,21 +20,24 @@ import java.util.List;
  */
 public class dbData
 {
-    public String getData(int offset) throws SQLException, ClassNotFoundException {
-            List<String> data = new ArrayList<>();
-            Connection con = Connector.connection();
-            String SQL = "select * from CA3.dummy  ORDER BY id ASC LIMIT 20 OFFSET ?;";
-            PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setInt(1, (offset));
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                data.add(rs.getString("desc"));
-            }
-            String res = "";
-            for(String d : data){
-                res += d + "\n";
-            }
-            return res;
+
+    public String getData(int offset) throws SQLException, ClassNotFoundException
+    {
+        JSONArray JA = new JSONArray();
+        Connection con = Connector.connection();
+        String SQL = "select * from CA3.dummy  ORDER BY id ASC LIMIT 20 OFFSET ?;";
+        PreparedStatement ps = con.prepareStatement(SQL);
+        ps.setInt(1, (offset));
+        ResultSet rs = ps.executeQuery();
         
+        while (rs.next()) {
+            JSONObject item = new JSONObject();
+            item.put("ID", rs.getInt("id"));
+            item.put("Desc", rs.getString("desc"));
+            JA.add(item);
+        }
+        JSONObject res = new JSONObject();
+        res.put("Result", JA);
+        return res.toJSONString();
     }
 }

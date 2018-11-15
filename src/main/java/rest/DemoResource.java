@@ -13,6 +13,8 @@ import javax.ws.rs.core.SecurityContext;
 import Resources.*;
 import java.sql.SQLException;
 import javax.ws.rs.PathParam;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
 
 /**
  * REST Web Service
@@ -55,8 +57,7 @@ public class DemoResource
     //@RolesAllowed({"user","admin"})
     public String getAll()
     {
-        String data = new externalData().getAll();
-        return "\"Here is some Star Wars data! And lots and lots of it!" + data + "\"";
+        return new externalData().getAll();
     }
     
     @GET
@@ -64,8 +65,7 @@ public class DemoResource
     @Path("dummy/{offset}")
     public String getDummyData(@PathParam("offset") Integer offset) throws SQLException, ClassNotFoundException
     {
-        String data = new Resources.DBAccess.dbData().getData(offset);
-        return data;
+        return new Resources.DBAccess.dbData().getData(offset);
     }
     
 }
