@@ -1,5 +1,3 @@
-import {headers} from 'react-dom';
-
 const URL = "http://localhost:8080/jwtbackend";
 
 
@@ -13,6 +11,11 @@ function handleHttpErrors(res) {
 
 class ApiFacade {
 
+  fetchData = () => {
+    const options = this.makeOptions("GET",true); 
+    return fetch(URL + "/api/info/user", options).then(handleHttpErrors);
+   }
+
     setToken = (token) => {
         localStorage.setItem('jwtToken', token)
     }
@@ -20,7 +23,7 @@ class ApiFacade {
     getToken = () => {
         return localStorage.getItem('jwtToken')
     }
-    
+
     loggedIn = () => {
         const loggedIn = this.getToken() != null;
         return loggedIn;
@@ -28,6 +31,7 @@ class ApiFacade {
     
     logout = () => {
         localStorage.removeItem("jwtToken");
+        alert("Thank you for visiting! You are now logged out.");
     }
     
     login = (user, pass) => {
@@ -35,7 +39,10 @@ class ApiFacade {
         return fetch(URL + "/api/login", options, true)
           .then(handleHttpErrors)
           .then(res => { this.setToken(res.token) })
+          .then(()=>{if(this.loggedIn) window.location.replace("/")});
     }
+
+    
  makeOptions(method,addToken,body) {
 
     
@@ -47,7 +54,7 @@ class ApiFacade {
      }
    }
    if (addToken && this.loggedIn()) {
-     headers["x-access-token"] = this.getToken();
+     opts.headers["x-access-token"] = this.getToken();
    }
    if (body) {
      opts.body = JSON.stringify(body);
@@ -55,5 +62,6 @@ class ApiFacade {
    return opts;
  }
 }
+
 const facade = new ApiFacade();
 export default facade;
