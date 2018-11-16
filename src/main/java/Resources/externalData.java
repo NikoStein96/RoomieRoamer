@@ -5,10 +5,16 @@
  */
 package Resources;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
+import net.minidev.json.parser.ParseException;
 
 /**
  *
@@ -17,25 +23,24 @@ import net.minidev.json.JSONObject;
 public class externalData
 {
     
-    public String getAll()
+    public String getAll() throws IOException, ParseException
     {
         JSONArray JA = new JSONArray();
-        List<String> results = new ArrayList();
+        JSONParser parser = new JSONParser(); 
+
         getData tc1 = new getData("https://swapi.co/api/people/1/");
-        results.add(tc1.call());
+        JA.add((JSONObject) parser.parse(tc1.call()));
         getData tc2 = new getData("https://swapi.co/api/people/2/");
-        results.add(tc2.call());
+        JA.add((JSONObject) parser.parse(tc2.call()));
         getData tc3 = new getData("https://swapi.co/api/people/3/");
-        results.add(tc3.call());
+        JA.add((JSONObject) parser.parse(tc3.call()));
         getData tc4 = new getData("https://swapi.co/api/people/4/");
-        results.add(tc4.call());
+        JA.add((JSONObject) parser.parse(tc4.call()));
         getData tc5 = new getData("https://swapi.co/api/people/5/");
-        results.add(tc5.call());
+        JA.add((JSONObject) parser.parse(tc5.call()));
         
-        for(String o : results)
-            JA.add(o);
         JSONObject res = new JSONObject();
-        res.put("Results", JA);
+        res.put("results", JA);
         return res.toJSONString();
     }
 

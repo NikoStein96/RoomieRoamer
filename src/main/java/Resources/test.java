@@ -5,13 +5,16 @@
  */
 package Resources;
 
+import java.io.IOException;
+import net.minidev.json.parser.ParseException;
+
 /**
  *
  * @author Tarllark
  */
 public class test
 {
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException, IOException, ParseException
     {
         externalData test = new externalData();
         System.out.println(test.getAll());

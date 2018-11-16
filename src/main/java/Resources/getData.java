@@ -11,6 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 import java.util.concurrent.Callable;
+import net.minidev.json.*;
 
 /**
  *
@@ -25,7 +26,7 @@ public class getData implements Callable
         this.api = api;
     }
     @Override
-    public String call()
+    public String call() throws IOException
     {
         String res = "";
         try {
@@ -33,7 +34,7 @@ public class getData implements Callable
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        return res;
+        return getSwapiData();
     }
 
     public String getSwapiData() throws MalformedURLException, IOException
@@ -48,6 +49,7 @@ public class getData implements Callable
         String jsonStr = null;
         if (scan.hasNext()) {
             jsonStr = scan.nextLine();
+            System.out.println(jsonStr);
         }
         scan.close();
         return jsonStr;
