@@ -71,7 +71,7 @@ class DummyData extends Component {
     }
 }
 
-const Dummy = (props) => <h1>{props.input.Desc}</h1>
-const AllData = (props) => <h3>{props.input.name}</h3>
+const Dummy = (props) => <p>{props.input.Desc}</p>
+const AllData = (props) => <p>{props.input.name}</p>
 
 export default DummyData;
