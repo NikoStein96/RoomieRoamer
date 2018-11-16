@@ -1,7 +1,5 @@
 const URL = "http://localhost:8080/jwtbackend";
 
-
-
 function handleHttpErrors(res) {
  if (!res.ok) {
    return Promise.reject({ status: res.status, fullError: res.json() })
@@ -11,35 +9,43 @@ function handleHttpErrors(res) {
 
 class ApiFacade {
 
+  // get user
   fetchData = () => {
     const options = this.makeOptions("GET",true); 
     return fetch(URL + "/api/info/user", options).then(handleHttpErrors);
    }
 
-    setToken = (token) => {
+   // get admin
+  fetchDataAdmin = () => {
+    const options = this.makeOptions("GET",true); 
+    return fetch(URL + "/api/info/admin", options).then(handleHttpErrors);
+   }
+
+  setToken = (token) => {
         localStorage.setItem('jwtToken', token)
     }
     
-    getToken = () => {
+  getToken = () => {
         return localStorage.getItem('jwtToken')
     }
-
-    loggedIn = () => {
+  // controls whether a person if logged in already
+  loggedIn = () => {
         const loggedIn = this.getToken() != null;
         return loggedIn;
     }
-    
-    logout = () => {
+  // logs out the user and redirects to Home  
+  logout = () => {
         localStorage.removeItem("jwtToken");
-        alert("Thank you for visiting! You are now logged out.");
+        alert("Thank you for visiting! Click OK to get logged out.");
+        window.location.replace("/");
     }
-    
-    login = (user, pass) => {
+  // validates the user credentials and redirects the user to /userpage  
+  login = (user, pass) => {
         const options = this.makeOptions("POST", true,{ username: user, password: pass });
         return fetch(URL + "/api/login", options, true)
           .then(handleHttpErrors)
           .then(res => { this.setToken(res.token) })
-          .then(()=>{if(this.loggedIn) window.location.replace("/")});
+          .then(()=>{if(this.loggedIn) window.location.replace("#/userpage")});
     }
 
     
