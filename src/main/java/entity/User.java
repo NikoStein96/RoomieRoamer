@@ -55,18 +55,18 @@ public class User implements Serializable
     @ManyToMany
     private List<Interest> interests = new ArrayList();
     @JoinTable(name = "user_liked", joinColumns = {
-        @JoinColumn(name = "user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "user_id", referencedColumnName = "user_id")})
+        @JoinColumn(name = "user_1", referencedColumnName = "user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "user_2", referencedColumnName = "user_id")})
     @ManyToMany
     private List<User> liked = new ArrayList();
     @JoinTable(name = "user_ignored", joinColumns = {
-        @JoinColumn(name = "user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "user_id", referencedColumnName = "user_id")})
+        @JoinColumn(name = "user_1", referencedColumnName = "user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "user_2", referencedColumnName = "user_id")})
     @ManyToMany
     private List<User> ignored = new ArrayList();
     @JoinTable(name = "user_matches", joinColumns = {
-        @JoinColumn(name = "user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "user_id", referencedColumnName = "user_id")})
+        @JoinColumn(name = "user_1", referencedColumnName = "user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "user_2", referencedColumnName = "user_id")})
     @ManyToMany
     private List<User> matches = new ArrayList();
 

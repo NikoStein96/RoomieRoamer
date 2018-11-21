@@ -33,7 +33,7 @@ private static final long serialVersionUID = 1L;
     @Column(name = "interest_name", length = 255)
     private String interestName;
     
-    @ManyToMany(mappedBy = "interestList")
+    @ManyToMany(mappedBy = "interests")
     private List<User> userList;
 
     public Interest() {

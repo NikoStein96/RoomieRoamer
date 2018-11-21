@@ -1,7 +1,6 @@
 package utils;
 
-import entity.Role;
-import entity.User;
+import entity.*;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
@@ -19,24 +18,39 @@ public class SetupTestUsers {
     
        
     em.getTransaction().begin();
-//    Role userRole = new Role("user");
+    Role userRole = new Role("user");
     Role adminRole = new Role("admin");
+    Interest smoking = new Interest("smoking");
+    Interest soccer = new Interest("soccer");
+    Interest football = new Interest("football");
+    Interest swimming = new Interest("swimming");
+    Interest gaming = new Interest("gaming");
+    Interest music = new Interest("music");
+    Interest art = new Interest("art");
+    
 //    User user = new User("user", "test123");
 //    user.addRole(userRole);
-    User admin = new User("admin", "test123");
-    admin.addRole(adminRole);
+//    User admin = new User("admin", "test123");
+//    admin.addRole(adminRole);
 //    User both = new User("user_admin", "test123");
 //    both.addRole(userRole);
 //    both.addRole(adminRole);
-//    em.persist(userRole);
-//    em.persist(adminRole);
+    em.persist(userRole);
+    em.persist(adminRole);
+    em.persist(smoking);
+    em.persist(soccer);
+    em.persist(football);
+    em.persist(swimming);
+    em.persist(gaming);
+    em.persist(music);
+    em.persist(art);
 //    em.persist(user);
-    em.persist(admin);
+//    em.persist(admin);
 //    em.persist(both);
     em.getTransaction().commit();
-////    System.out.println("PW: " + user.getUserPass());
+//    System.out.println("PW: " + user.getUserPass());
 //    System.out.println("Testing user with OK password: " + user.verifyPassword("test"));
-   // User user = em.find(User.class, "user");
+//    User user = em.find(User.class, "user");
 //    System.out.println("Testing user with password: " + user.verifyPassword("test123"));
 //    System.out.println("Created TEST Users");
    
