@@ -45,15 +45,30 @@ public class User implements Serializable
     @Column(name = "user_picture", length = 255)
     private String picRef;
     @JoinTable(name = "user_roles", joinColumns = {
-        @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
+        @JoinColumn(name = "user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
         @JoinColumn(name = "role_name", referencedColumnName = "role_name")})
     @ManyToMany
     private List<Role> roleList = new ArrayList();
     @JoinTable(name = "user_interests", joinColumns = {
-        @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
+        @JoinColumn(name = "user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
         @JoinColumn(name = "interest_name", referencedColumnName = "interest_name")})
     @ManyToMany
     private List<Interest> interests = new ArrayList();
+    @JoinTable(name = "user_liked", joinColumns = {
+        @JoinColumn(name = "user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "user_id", referencedColumnName = "user_id")})
+    @ManyToMany
+    private List<User> liked = new ArrayList();
+    @JoinTable(name = "user_ignored", joinColumns = {
+        @JoinColumn(name = "user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "user_id", referencedColumnName = "user_id")})
+    @ManyToMany
+    private List<User> ignored = new ArrayList();
+    @JoinTable(name = "user_matches", joinColumns = {
+        @JoinColumn(name = "user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "user_id", referencedColumnName = "user_id")})
+    @ManyToMany
+    private List<User> matches = new ArrayList();
 
     public List<String> getRolesAsStrings()
     {
@@ -66,18 +81,55 @@ public class User implements Serializable
         }
         return rolesAsStrings;
     }
+
     public List<String> getInterestsAsStrings()
     {
         if (interests.isEmpty()) {
             return null;
         }
         List<String> interestsAsStrings = new ArrayList();
-        for (Role role : roleList) {
-            interestsAsStrings.add(role.getRoleName());
+        for (Interest interest : interests) {
+            interestsAsStrings.add(interest.getInterestName());
         }
         return interestsAsStrings;
     }
+    
+    public List<String> getLikedAsStrings()
+    {
+        if (liked.isEmpty()) {
+            return null;
+        }
+        List<String> likedAsStrings = new ArrayList();
+        for (User user : liked) {
+            likedAsStrings.add(user.getUserName());
+        }
+        return likedAsStrings;
+    }
 
+    public List<String> getIgnoredAsStrings()
+    {
+        if (ignored.isEmpty()) {
+            return null;
+        }
+        List<String> ignoredAsStrings = new ArrayList();
+        for (User user : liked) {
+            ignoredAsStrings.add(user.getUserName());
+        }
+        return ignoredAsStrings;
+    }
+    
+    public List<String> getMatchesAsStrings()
+    {
+        if (matches.isEmpty()) {
+            return null;
+        }
+        List<String> matchesAsStrings = new ArrayList();
+        for (User user : liked) {
+            matchesAsStrings.add(user.getUserName());
+        }
+        return matchesAsStrings;
+    }
+    
     public User()
     {
     }
@@ -87,6 +139,12 @@ public class User implements Serializable
     {
         return BCrypt.checkpw(pw, userPass);
 //        return(pw.equals(userPass));
+    }
+
+    public User(int id, String userName)
+    {
+        this.userName = userName;
+        this.id = id;
     }
 
     public User(String userName, String userPass)
@@ -151,6 +209,7 @@ public class User implements Serializable
     {
         this.interests = interests;
     }
+
     public void addInterest(Role userInterest)
     {
         roleList.add(userInterest);
@@ -184,6 +243,51 @@ public class User implements Serializable
     public void setId(Integer id)
     {
         this.id = id;
+    }
+
+    public List<User> getLiked()
+    {
+        return liked;
+    }
+
+    public void setLiked(List<User> liked)
+    {
+        this.liked = liked;
+    }
+
+    public void addLiked(User user)
+    {
+        liked.add(user);
+    }
+
+    public List<User> getIgnored()
+    {
+        return ignored;
+    }
+
+    public void setIgnored(List<User> ignored)
+    {
+        this.ignored = ignored;
+    }
+
+    public void addIgnored(User user)
+    {
+        ignored.add(user);
+    }
+
+    public List<User> getMatches()
+    {
+        return matches;
+    }
+
+    public void setMatches(List<User> matches)
+    {
+        this.matches = matches;
+    }
+
+    public void addMatched(User user)
+    {
+        matches.add(user);
     }
 
 }
