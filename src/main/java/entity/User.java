@@ -49,6 +49,11 @@ public class User implements Serializable
         @JoinColumn(name = "role_name", referencedColumnName = "role_name")})
     @ManyToMany
     private List<Role> roleList = new ArrayList();
+    @JoinTable(name = "user_interests", joinColumns = {
+        @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
+        @JoinColumn(name = "interest_name", referencedColumnName = "interest_name")})
+    @ManyToMany
+    private List<Interest> interests = new ArrayList();
 
     public List<String> getRolesAsStrings()
     {
@@ -60,6 +65,17 @@ public class User implements Serializable
             rolesAsStrings.add(role.getRoleName());
         }
         return rolesAsStrings;
+    }
+    public List<String> getInterestsAsStrings()
+    {
+        if (interests.isEmpty()) {
+            return null;
+        }
+        List<String> interestsAsStrings = new ArrayList();
+        for (Role role : roleList) {
+            interestsAsStrings.add(role.getRoleName());
+        }
+        return interestsAsStrings;
     }
 
     public User()
@@ -124,6 +140,20 @@ public class User implements Serializable
     public void addRole(Role userRole)
     {
         roleList.add(userRole);
+    }
+
+    public List<Interest> getInterests()
+    {
+        return interests;
+    }
+
+    public void setInterests(List<Interest> interests)
+    {
+        this.interests = interests;
+    }
+    public void addInterest(Role userInterest)
+    {
+        roleList.add(userInterest);
     }
 
     public String getDesc()
