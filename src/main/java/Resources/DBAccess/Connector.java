@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class Connector {
 
-    private static final String URL = "jdbc:mysql://159.65.56.14/CA3";
+    private static final String URL = "jdbc:mysql://159.65.56.14/RoomieRoamer";
     private static final String USERNAME = "crud";
     private static final String PASSWORD = "crud42";
     private static Connection singleton;
