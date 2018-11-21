@@ -30,6 +30,12 @@ public class User implements Serializable {
   @Size(min = 1, max = 255)
   @Column(name = "user_pass")
   private String userPass;
+  @Basic(optional = false)
+  @Column(name = "user_desc", length = 255)
+  private String desc;
+  @Basic(optional = false)
+  @Column(name = "user_picture", length = 255)
+  private String picRef;
   @JoinTable(name = "user_roles", joinColumns = {
     @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
     @JoinColumn(name = "role_name", referencedColumnName = "role_name")})
@@ -61,6 +67,16 @@ public class User implements Serializable {
     String hash = BCrypt.hashpw(userPass, salt);
     this.userPass = hash;
   }
+  
+  public User(String userName, String userPass, String desc, String picRef) {
+    this.userName = userName;
+    String salt = BCrypt.gensalt();
+    String hash = BCrypt.hashpw(userPass, salt);
+    this.userPass = hash;
+    this.desc = desc;
+    this.picRef = picRef;
+  }
+  
 
   public String getUserName() {
     return userName;
@@ -90,4 +106,23 @@ public class User implements Serializable {
     roleList.add(userRole);
   }
 
+    public String getDesc()
+    {
+        return desc;
+    }
+
+    public void setDesc(String desc)
+    {
+        this.desc = desc;
+    }
+
+    public String getPicRef()
+    {
+        return picRef;
+    }
+
+    public void setPicRef(String picRef)
+    {
+        this.picRef = picRef;
+    }
 }
