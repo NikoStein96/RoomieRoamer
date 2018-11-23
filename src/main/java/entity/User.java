@@ -133,6 +133,14 @@ public class User implements Serializable
     public User()
     {
     }
+    
+    public User(UserDTO dto){
+        this.id=dto.getId();
+        this.userName=dto.getUserName();
+        
+    }
+    
+    
 
     //TODO Change when password is hashed
     public boolean verifyPassword(String pw)

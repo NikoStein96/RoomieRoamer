@@ -26,7 +26,7 @@ public class UserDTO
     private List<UserDTO> liked = new ArrayList();
     
     public UserDTO(User user) {
-        System.out.println(user);
+        //System.out.println(user);
         this.id = user.getId();
         this.userName = user.getUserName();
         this.userPass = user.getUserPass();

@@ -49,6 +49,20 @@ public class UserEndpoint
         return Response.ok().entity(gson.toJson(uf.getUserDTO(id))).build();
     }
     @GET
+    @Path("/{id}/desc")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUserDescByID(@PathParam("id") Integer id) {
+        return Response.ok().entity(gson.toJson(uf.getUserDTO(id).getDesc())).build();
+    }
+    
+    @GET
+    @Path("/{id}/interest")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUserInterestByID(@PathParam("id") Integer id) {
+        return Response.ok().entity(gson.toJson(uf.getUserDTO(id).getInterests())).build();
+    }
+    
+    @GET
     @Path("/allasmap")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUsers() {

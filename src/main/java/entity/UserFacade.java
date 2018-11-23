@@ -52,19 +52,16 @@ public class UserFacade {
     {
         EntityManager em = emf.createEntityManager();
 
-        List<User> users = null;
+        List<User> users;
         
-        try
-        {
+        
+        
             em.getTransaction().begin();
             users = em.createQuery("Select p from User p").getResultList();
-            em.getTransaction().commit();
-            return users;
-        }
-        finally
-        {
+            //em.getTransaction().commit();
             em.close();
-        }
+            return users;
+            
     }
         
         public List<User> getUsersByRoleAdmin() {
