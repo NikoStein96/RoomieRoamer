@@ -47,9 +47,6 @@ public class UserDTO
         for (String match : user.getMatchesAsStrings()) {
             matches += match + " ";
         }
-        
-        
-        
     }
 
     public Integer getId() {
