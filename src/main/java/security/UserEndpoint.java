@@ -12,6 +12,7 @@ import entity.UserDTO;
 import entity.UserFacade;
 import javax.persistence.Persistence;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -74,5 +75,12 @@ public class UserEndpoint
         if(newUser.getDesc()!=null)
             savedUser.setDesc(newUser.getDesc());
         return Response.ok().entity(gson.toJson(savedUser)).build();
+    }
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteUser(@PathParam("id")int id) {
+        User us = uf.deleteUser(id);
+        return Response.ok().entity(gson.toJson(us)).build();
     }
 }

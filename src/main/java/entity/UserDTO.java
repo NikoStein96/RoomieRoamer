@@ -21,9 +21,9 @@ public class UserDTO
     private String picRef;
     private List<RoleDTO> roleList = new ArrayList();
     private List<InterestDTO> interests = new ArrayList();
-    private List<User> matches = new ArrayList();
-    private List<User> ignored = new ArrayList();
-    private List<User> liked = new ArrayList();
+    private List<UserDTO> matches = new ArrayList();
+    private List<UserDTO> ignored = new ArrayList();
+    private List<UserDTO> liked = new ArrayList();
     
     public UserDTO(User user) {
         System.out.println(user);
@@ -32,9 +32,6 @@ public class UserDTO
         this.userPass = user.getUserPass();
         this.desc = user.getDesc();
         this.picRef = user.getPicRef();
-        this.matches = user.getMatches();
-        this.ignored = user.getIgnored();
-        this.liked = user.getLiked();
         for(Role r : user.getRoleList()){
             this.roleList.add(new RoleDTO(r));
         
@@ -42,38 +39,17 @@ public class UserDTO
         for(Interest i : user.getInterests()) {
             this.interests.add(new InterestDTO(i));
         }
-
+        for(User um : user.getMatches()) {
+            this.matches.add(new UserDTO(um));
+        }
+        for(User ui : user.getIgnored()) {
+            this.ignored.add(new UserDTO(ui));
+        }
+        for(User ul : user.getLiked()) {
+            this.liked.add(new UserDTO(ul));
+        }
     }
 
-    public List<User> getMatches()
-    {
-        return matches;
-    }
-
-    public void setMatches(List<User> matches)
-    {
-        this.matches = matches;
-    }
-
-    public List<User> getIgnored()
-    {
-        return ignored;
-    }
-
-    public void setIgnored(List<User> ignored)
-    {
-        this.ignored = ignored;
-    }
-
-    public List<User> getLiked()
-    {
-        return liked;
-    }
-
-    public void setLiked(List<User> liked)
-    {
-        this.liked = liked;
-    }
 
     public Integer getId()
     {

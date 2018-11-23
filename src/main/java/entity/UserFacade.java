@@ -10,7 +10,13 @@ import exceptions.AuthenticationException;
 import java.util.List;
 
 /**
- *
+ * TODO:
+ * Liste over potentielle personer du kan like
+ * Liste over LIKEDE personer (én person har liked en anden og afventer svar)
+ * Liste over Matches (to personer som har liked hinanden)
+ * Liste over disliked personer (personlig dislike liste)
+ * Liste over blokerede personer
+ * Liste over samtaler
  * @author lam@cphbusiness.dk
  */
 public class UserFacade {
@@ -136,6 +142,23 @@ public class UserFacade {
         }  
         
         return null;
+    }
+    public User deleteUser(int id)
+    {
+        EntityManager em = emf.createEntityManager();
+
+        try
+        {
+            em.getTransaction().begin();
+            User u = em.find(User.class, id);
+            em.remove(u);
+            em.getTransaction().commit();
+            return u;
+        }
+        finally
+        {
+            em.close();
+        }
     }
     
     public User getVeryfiedUser(String username, String password) throws AuthenticationException {
