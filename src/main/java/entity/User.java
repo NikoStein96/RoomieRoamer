@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -44,6 +45,9 @@ public class User implements Serializable
     @Basic(optional = false)
     @Column(name = "user_picture", length = 255)
     private String picRef;
+    @JoinColumn(name = "user_questionnaire")
+    @OneToOne
+    private Questionnaire questionnaire;
     @JoinTable(name = "user_roles", joinColumns = {
         @JoinColumn(name = "user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
         @JoinColumn(name = "role_name", referencedColumnName = "role_name")})
@@ -289,5 +293,17 @@ public class User implements Serializable
     {
         matches.add(user);
     }
+
+    public Questionnaire getQuestionnaire()
+    {
+        return questionnaire;
+    }
+
+    public void setQuestionnaire(Questionnaire questionnaire)
+    {
+        this.questionnaire = questionnaire;
+    }
+
+    
 
 }

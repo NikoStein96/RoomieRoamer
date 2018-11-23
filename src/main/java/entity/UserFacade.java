@@ -18,7 +18,7 @@ public class UserFacade {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
     private static final UserFacade instance = new UserFacade();
     
-    private UserFacade(){}
+    public UserFacade(){}
     
     public static UserFacade getInstance(){
         return instance;
@@ -37,5 +37,11 @@ public class UserFacade {
         }
         return user;
     }
-
+    public User getTest(){
+        EntityManager em = emf.createEntityManager();
+        User u = em.find(User.class, 3);
+        return u;
+    }
+    
+    
 }
