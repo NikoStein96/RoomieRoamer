@@ -112,7 +112,7 @@ public class User implements Serializable
             return null;
         }
         List<String> ignoredAsStrings = new ArrayList();
-        for (User user : liked) {
+        for (User user : ignored) {
             ignoredAsStrings.add(user.getUserName());
         }
         return ignoredAsStrings;
@@ -124,7 +124,7 @@ public class User implements Serializable
             return null;
         }
         List<String> matchesAsStrings = new ArrayList();
-        for (User user : liked) {
+        for (User user : matches) {
             matchesAsStrings.add(user.getUserName());
         }
         return matchesAsStrings;
@@ -193,10 +193,11 @@ public class User implements Serializable
         this.userPass = userPass;
     }
 
-    public List<Role> getRoleList()
-    {
+    public List<Role> getRoleList() {
         return roleList;
     }
+
+    
 
     public void setRoleList(List<Role> roleList)
     {
@@ -205,7 +206,7 @@ public class User implements Serializable
 
     public void addRole(Role userRole)
     {
-        roleList.add(userRole);
+        this.roleList.add(userRole);
     }
 
     public List<Interest> getInterests()
@@ -218,9 +219,9 @@ public class User implements Serializable
         this.interests = interests;
     }
 
-    public void addInterest(Role userInterest)
+    public void addInterest(Interest userInterest)
     {
-        roleList.add(userInterest);
+        this.interests.add(userInterest);
     }
 
     public String getDesc()
@@ -265,7 +266,7 @@ public class User implements Serializable
 
     public void addLiked(User user)
     {
-        liked.add(user);
+        this.liked.add(user);
     }
 
     public List<User> getIgnored()
@@ -280,7 +281,7 @@ public class User implements Serializable
 
     public void addIgnored(User user)
     {
-        ignored.add(user);
+        this.ignored.add(user);
     }
 
     public List<User> getMatches()
@@ -295,7 +296,12 @@ public class User implements Serializable
 
     public void addMatched(User user)
     {
-        matches.add(user);
+        this.matches.add(user);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", userName=" + userName + ", userPass=" + userPass + ", desc=" + desc + ", picRef=" + picRef + ", roleList=" + getRolesAsStrings()+ ", interests=" + getInterestsAsStrings() + ", liked=" + getLikedAsStrings() + ", ignored=" + getIgnoredAsStrings() + ", matches=" + getMatchesAsStrings() + '}';
     }
 
 }
