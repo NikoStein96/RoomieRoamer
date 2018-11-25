@@ -158,7 +158,7 @@ public class UserFacade {
 
     public User getTest(){
         EntityManager em = emf.createEntityManager();
-        User u = em.find(User.class, 3);
+        User u = em.find(User.class, 1);
         return u;
     }
     

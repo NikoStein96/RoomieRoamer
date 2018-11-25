@@ -75,6 +75,6 @@ public class DemoResource
     @Path("test")
     public String getTestData() throws SQLException, ClassNotFoundException
     {
-        return new UserFacade().getTest().getQuestionnaire().getQuestionnaireClean().getCleanLevelName();
+        return new UserFacade().getTest().getQuestionnaire().getQuestionnaireArea().getCityInfoName();
     }
 }
