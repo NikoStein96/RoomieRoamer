@@ -1,54 +1,42 @@
-import React, { Component } from "react"
-export default class FindUser extends Component{
+import React, { Component } from "react";
+export default class FindUser extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { value: "" };
+  }
 
-    constructor(props) {
-        super(props);
-        this.state = {value: ''};
-    
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-      }
-    
-      handleChange(event) {
-        this.setState({value: event.target.value});
-      }
-    
-      handleSubmit(event) {
-        event.preventDefault();
-        console.log(event.target.value);
-        var URL = 'https://swapi.co/api/people/'+event.target.value;
-            fetch(URL)
-            .then(response =>response.json())
-            .then(json => {
-                console.log(json);
-                document.getElementById("info").innerHTML = 
-                "Name: " + json.name + "  mass: " +
-                json.mass;
-    
-            });
-        
-        
-      }
-      
-    
-      render() {
-        
-        
-        return (
-          
-          <form >
-          
-          <p>{this.state.value}</p>
+  handleChange = event => {
+    console.log(event.target.value);
+    this.setState({ value: event.target.value });
+  };
 
-          <input type = 'number' value = {this.state.value} onChange={this.handleChange}/>
+  handleSubmit = event => {
+    event.preventDefault();
+    var URL = "https://swapi.co/api/people/" + this.state.value;
+    fetch(URL)
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        document.getElementById("info").innerHTML =
+          "Name: " + json.name + "  mass: " + json.mass;
+      });
+  };
 
-          <input type = 'submit' value = "Submit" onSubmit={this.handleSubmit}/>
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <p>{this.state.value}</p>
 
-          <p id="info"/>
+        <input
+          type="number"
+          value={this.state.value}
+          onChange={this.handleChange}
+        />
 
-          </form>
-        
-          
-        );
-      }
+        <input type="submit" value="Submit" />
+
+        <p id="info" />
+      </form>
+    );
+  }
 }
