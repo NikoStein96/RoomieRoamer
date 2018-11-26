@@ -77,4 +77,11 @@ public class DemoResource
     {
         return new UserFacade().getTest().getQuestionnaire().getQuestionnaireArea().getCityInfoName();
     }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("testPoma")
+    public String getTestPoma() throws SQLException, ClassNotFoundException
+    {
+        return new UserFacade().getPomaAsString();
+    }
 }
