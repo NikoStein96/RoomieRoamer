@@ -17,15 +17,20 @@ export default class FindUser extends Component {
       .then(response => response.json())
       .then(json => {
         console.log(json);
+        if(json.name === undefined){
+          document.getElementById("info").innerHTML = "No user with that userID";
+        }
+        else{
         document.getElementById("info").innerHTML =
           "Name: " + json.name + "  mass: " + json.mass;
+        }
       });
   };
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <p>{this.state.value}</p>
+        
 
         <input
           type="number"
@@ -34,7 +39,7 @@ export default class FindUser extends Component {
         />
 
         <input type="submit" value="Submit" />
-
+        <p>We will fetch user with ID: {this.state.value}</p>
         <p id="info" />
       </form>
     );
