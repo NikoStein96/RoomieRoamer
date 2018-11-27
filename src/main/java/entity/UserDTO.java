@@ -35,17 +35,25 @@ public class UserDTO {
         for (String role : user.getRolesAsStrings()) {
             roleList += role + " ";
         }
+        if(user.getInterestsAsStrings() != null){
         for (String interest : user.getInterestsAsStrings()) {
             interests += interest + " ";
         }
+        }
+        if(user.getLikedAsStrings() != null){
         for (String like : user.getLikedAsStrings()) {
             liked += like + " ";
         }
+        }
+        if(user.getIgnoredAsStrings() != null){
         for (String ignore : user.getIgnoredAsStrings()) {
             ignored += ignore + " ";
         }
+        }
+        if(user.getMatchesAsStrings() != null){
         for (String match : user.getMatchesAsStrings()) {
             matches += match + " ";
+        }
         }
     }
 
