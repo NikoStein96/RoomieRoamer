@@ -45,7 +45,8 @@ public class UserEndpoint
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserByID(@PathParam("id") Integer id) {
-        return Response.ok().entity(gson.toJson(uf.getUserDTO(id))).build();
+        System.out.println(gson.toJson(uf.getUserDTO(id)));
+        return Response.ok().entity(gson.toJson(uf.getUserDTO(id).getDesc())).build();
     }
     @GET
     @Path("/allasmap")

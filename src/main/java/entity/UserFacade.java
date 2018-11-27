@@ -51,7 +51,7 @@ public class UserFacade {
         try
         {
             em.getTransaction().begin();
-            users = em.createQuery("Select p from User p").getResultList();
+            users = em.createQuery("Select u from users u").getResultList();
             em.getTransaction().commit();
             return users;
         }
