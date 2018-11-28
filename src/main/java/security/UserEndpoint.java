@@ -47,7 +47,7 @@ public class UserEndpoint
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserByID(@PathParam("id") Integer id) {
         System.out.println(gson.toJson(uf.getUserDTO(id)));
-        return Response.ok().entity(gson.toJson(uf.getUserDTO(id).getDesc())).build();
+        return Response.ok().entity(gson.toJson(uf.getUserDTO(id))).build();
     }
     @GET
     @Path("/{id}/desc")
@@ -85,11 +85,13 @@ public class UserEndpoint
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateUserDesc( String content, @PathParam("id") int id)  {
-        UserDTO newUser = gson.fromJson(content, UserDTO.class);
-        UserDTO savedUser = uf.getUserDTO(id);
+        User newUser = gson.fromJson(content, User.class);
+        User savedUser = uf.getUser(id);
         if(newUser.getDesc()!=null)
             savedUser.setDesc(newUser.getDesc());
-        return Response.ok().entity(gson.toJson(savedUser)).build();
+        uf.editUser(savedUser);
+           UserDTO u = new UserDTO(savedUser);
+        return Response.ok().entity(gson.toJson(u)).build();
     }
     @DELETE
     @Path("/{id}")

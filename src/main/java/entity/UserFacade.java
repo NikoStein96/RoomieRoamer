@@ -48,6 +48,18 @@ public class UserFacade {
             em.close();
         }        
     }
+     public User getUser(Integer id) {
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            em.getTransaction().begin();
+            User u = em.find(User.class, id);
+            return u;
+            
+        } finally {
+            em.close();
+        }        
+    }
     
     public List<UserDTO> getUsers() {
         EntityManager em = emf.createEntityManager();
