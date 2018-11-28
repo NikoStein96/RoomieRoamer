@@ -66,6 +66,8 @@ public class UserEndpoint
     @Path("/allasmap")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUsers() {
+        
+        gson.
         return Response.ok().entity(gson.toJson(uf.getUsers())).build();
     }
     
