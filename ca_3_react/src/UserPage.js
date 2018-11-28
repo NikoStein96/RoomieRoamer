@@ -9,19 +9,19 @@ export default class UserPage extends Component {
     }
   
   // fetch user and admin details from backend
-    componentDidMount() {
+/*    componentDidMount() {
       facade.fetchData().then(res => this.setState({ dataFromServer: res }));
       facade.fetchDataAdmin().then(res => this.setState({ dataFromServer: res}));
     }
-
+*/
     handleChangeUP = event => {
       console.log(event.target.value);
       this.setState({ value: event.target.value });
     };
 
-    handleSubmitUP = event => {
-      event.preventDefault();
-      var URL = "http://localhost:8080/RoomieRoamer/api/User/"+this.state.value+"/desc";
+    
+componentDidMount() {
+  var URL = "http://localhost:8080/RoomieRoamer/api/User/1/poma";
       fetch(URL)
         .then(response => response.json())
         .then(json => {
@@ -30,15 +30,39 @@ export default class UserPage extends Component {
             document.getElementById("desc1").innerHTML = "No user with that userID";
           }
           else{
-  
-          document.getElementById("desc1").innerHTML =
+          nr++;  
+          
+          document.getElementById("desc1").innerHTML = json.results[nr].Name;
+}
+// eslint-disable-next-line
+             
+
+
+});
+}
+    /*
+    handleSubmitUP = event => {
+      event.preventDefault();
+      var URL = "http://localhost:8080/RoomieRoamer/api/User/1/poma";
+      fetch(URL)
+        .then(response => response.json())
+        .then(json => {
+          console.log(json);
+          if(json === undefined){
+            document.getElementById("desc1").innerHTML = "No user with that userID";
+          }
+          else{
+            
+          
+          document.getElementById("desc1").innerHTML = json.results[nr].Name;
+        
           // eslint-disable-next-line
-          json;
-  
+             
+
           }
         });
     };
-  
+  */
     render() {
       return (
         <div>
@@ -49,34 +73,20 @@ export default class UserPage extends Component {
           <br>
           </br>
           <button onClick={facade.logout}>Logout</button>
-        
         <br/>
         <br/>
         <br/>
-        
-        <form onSubmit={this.handleSubmitUP}>
-        
-
-        <input
-          type="number"
-          value={this.state.value}
-          onChange={this.handleChangeUP}
-        />
-
-        <input type="submit" value="Search" />
-        <h3>We will fetch user describtion with ID: {this.state.value}</h3>
-
-        
-        <p id="desc1" align="center">no data yet</p>
-        
-        
-        
-        
-        
+  <form onSubmit={this.componentDidMount()}>
+        <input type="submit" value="Search" onChange={this.handleChangeUP}>
+        </input>
+        <h3>We will fetch user describtion with ID: {nr}</h3>
       </form>
+      <p id="desc1" align="center">no data yet</p>
       </div>  
-      
       )
-  
     }
   }
+  let nr = 0;
+
+ 
+      

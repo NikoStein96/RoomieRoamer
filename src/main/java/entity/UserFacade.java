@@ -10,6 +10,8 @@ import exceptions.AuthenticationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
 
 /**
  * TODO: Liste over potentielle personer du kan like Liste over LIKEDE personer
@@ -223,6 +225,23 @@ public class UserFacade {
         return poma;
     }
     
+    
+   public String getPomaAsJSON(int id){
+       EntityManager em = emf.createEntityManager();
+       User user = em.find(User.class, id);
+       JSONArray jsnArr = new JSONArray();
+        for(User usr: getPoma(user)){
+            JSONObject jsn = new JSONObject();
+            
+            jsn.put("Name", usr.getUserName());
+            jsnArr.add(jsn);
+        }
+        JSONObject jon = new JSONObject();
+        jon.put("results", jsnArr);
+        
+        return jon.toJSONString();
+   } 
+   
     public String getPomaAsString()
     {
         EntityManager em = emf.createEntityManager();

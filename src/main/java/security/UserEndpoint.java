@@ -43,6 +43,14 @@ public class UserEndpoint
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     
     @GET
+    @Path("/{id}/poma")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPomaByID(@PathParam("id") Integer id) {
+        //System.out.println(gson.toJson(uf.getPomaAsJSON(id)));
+        return Response.ok().entity((uf.getPomaAsJSON(id))).build();
+    }
+    
+    @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserByID(@PathParam("id") Integer id) {
