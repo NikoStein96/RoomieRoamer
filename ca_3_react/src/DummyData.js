@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-
 const url = 'https://bloodoath-co.dk/CA3/api/info/dummy/0';
 const urlall = 'https://bloodoath-co.dk/CA3/api/info/all';
 //const testurl = 'https://swapi.co/api/people/';
@@ -55,23 +54,28 @@ class DummyData extends Component {
       //  console.log("items from api: " + data);
         return (
                 <div >
-                    <body>
-                            <p>
+                    <table>
+                        
+                    
                             {data.map(item => <Dummy key={item.ID} input = {item}/>)}
-                            </p>
-                            <p>
+                              
+                        <tr>  
+                            
                             {all.map(value => <AllData key={value.name} input = {value}/>)}
-                            </p>
+                            
+                        </tr>
                             <button onClick = {this.nextResult}>Press me for next 20 items</button>
                             <button onClick = {this.previousResult}>Press me for previous 20 items</button>
                             <button onClick = {this.getalldata}>Press me for all</button>
-                    </body>
+                    
+                    
+                    </table>
                 </div>
         )
     }
 }
 
-const Dummy = (props) => <p>{props.input.Desc}</p>
-const AllData = (props) => <p>{props.input.name}</p>
+const Dummy = (props) => <li>{props.input.Desc}</li>
+const AllData = (props) => <td>{props.input.name}</td>
 
 export default DummyData;
