@@ -10,6 +10,8 @@
     <class>entity.Reason</class>
     <class>entity.CleanLevel</class>
     <class>entity.Questionnaire</class>
+    <class>chat.entity.Message</class>
+    <class>chat.entity.Chat</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://159.65.56.14/RoomieRoamer?useSSL=false"/>
