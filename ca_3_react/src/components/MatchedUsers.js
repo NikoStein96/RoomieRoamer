@@ -1,43 +1,48 @@
 import React, { Component } from "react";
+import "./MatchedUsers.css";
+import MessageDetail from "./MessageDetail";
 
 class MatchedUsers extends Component {
   state = {};
   render() {
     return (
       <div>
-        <div className="ui placeholder segment">
-          <div className="ui icon header">
-            Here you can contact a potential new room mate!
+        <div className="ui bottom attached segment pushable">
+          <div className="ui visible inverted left vertical sidebar menu">
+            <div className="ui segment users">
+              <img
+                className="ui avatar image"
+                src="https://www.w3schools.com/howto/img_avatar.png"
+                alt="avatar"
+              />
+              <span>Username</span>
+            </div>
+            <div className="ui segment users">
+              <img
+                className="ui avatar image"
+                src="https://www.w3schools.com/howto/img_avatar.png"
+                alt="avatar"
+              />
+              <span>Username</span>
+            </div>
+            <div className="ui segment users">
+              <img
+                className="ui avatar image"
+                src="https://www.w3schools.com/howto/img_avatar.png"
+                alt="avatar"
+              />
+              <span>Username</span>
+            </div>
           </div>
-        </div>
-
-        <div class="ui grid">
-          <div class="row">
-            <div class="eight wide column">
-              <img
-                src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
-                class="ui image"
-              />
-            </div>
-            <div class="eight wide column">
-              <img
-                src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
-                class="ui image"
-              />
-            </div>
-          </div>
-          <div class="row">
-            <div class="eight wide column">
-              <img
-                src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
-                class="ui image"
-              />
-            </div>
-            <div class="eight wide column">
-              <img
-                src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
-                class="ui image"
-              />
+          <div className="pusher">
+            <div className="ui basic segment" />
+            <MessageDetail />
+            <div className="ui form">
+              <div className="field">
+                <h2>Type a message</h2>
+                <textarea rows="8" cols="50" />
+                <i class="circular large paper plane icon" />
+              </div>
             </div>
           </div>
         </div>

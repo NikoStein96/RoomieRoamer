@@ -4,10 +4,11 @@ import DummyData from "./DummyData";
 import UserPage from "./UserPage";
 import Home from "./Home";
 import FindUser from "./FindUser";
+import "./App.css";
 
 import MatchedUsers from "./components/MatchedUsers";
 
-import AdminGetAllUsers from "./AdminGetAllUsers"
+import AdminGetAllUsers from "./AdminGetAllUsers";
 
 import { HashRouter as Router, Route, Link } from "react-router-dom";
 
@@ -59,11 +60,9 @@ const App = () => (
             <Link to="/finduser/">FindUser</Link>
           </li>
           <li>
-
             <Link to="/messages">Messages</Link>
 
             <Link to="/admin/">Admin</Link>
-
           </li>
         </ul>
       </nav>
@@ -77,7 +76,6 @@ const App = () => (
       <Route path="/messages" exact component={MatchedUsers} />
 
       <Route path="/admin" exact component={AdminGetAllUsers} />
-
     </div>
   </Router>
 );

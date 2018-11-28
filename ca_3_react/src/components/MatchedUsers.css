@@ -1,0 +1,55 @@
+.ui.inverted.menu {
+  background: orange;
+}
+
+.ui.left.sidebar,
+.ui.right.sidebar {
+  width: 20%;
+}
+
+.ui.bottom.attached.segment.pushable {
+  height: 96vh;
+}
+
+.ui.segment.users {
+  background: orange;
+  margin: 0px;
+}
+
+.ui.avatar.image {
+  font-size: 42px;
+}
+
+.pusher {
+  padding-left: 8%;
+  height: 94vh;
+  width: 100%;
+}
+
+.ui.form {
+  position: fixed;
+  bottom: 3%;
+  width: 25%;
+  margin-left: 25%;
+}
+
+textarea {
+  resize: none !important;
+  border: double 4px orange !important;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  width: 80% !important;
+  height: 15vh !important;
+}
+
+.ui.form i {
+  position: absolute;
+  bottom: 0%;
+  margin-bottom: 8%;
+  margin-left: 5%;
+  color: orange;
+  cursor: pointer;
+}
+
+.ui.form h2 {
+  color: orange !important;
+}

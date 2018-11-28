@@ -1,0 +1,49 @@
+.inc_msg {
+  display: inline-block;
+  padding: 0 0 0 10px;
+  vertical-align: top;
+  width: 92%;
+}
+
+.inc_msg p {
+  background: #ebebeb none repeat scroll 0 0;
+  border-radius: 3px;
+  color: #646464;
+  font-size: 14px;
+  margin: 0;
+  padding: 5px 10px 5px 12px;
+  width: 100%;
+}
+
+.time_date {
+  color: #747474;
+  display: block;
+  font-size: 12px;
+  margin: 8px 0 0;
+}
+
+.received_width_msg {
+  width: 40%;
+}
+.mesgs {
+  float: left;
+  padding: 30px 15px 0 25px;
+  width: 60%;
+}
+
+.outgoing_msg {
+  overflow: hidden;
+  margin: 2% 0 3%;
+}
+.sent_msg {
+  float: right;
+  width: 46%;
+}
+
+.messaging {
+  padding: 0 0 50px 0;
+}
+.msg_history {
+  height: 518px;
+  overflow-y: auto;
+}
