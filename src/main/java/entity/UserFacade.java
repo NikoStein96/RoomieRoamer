@@ -7,9 +7,14 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import exceptions.AuthenticationException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * TODO: Liste over potentielle personer du kan like Liste over LIKEDE personer
+ * (én person har liked en anden og afventer svar) Liste over Matches (to
+ * personer som har liked hinanden) Liste over disliked personer (personlig
+ * dislike liste) Liste over blokerede personer Liste over samtaler
  *
  * @author lam@cphbusiness.dk
  */
@@ -19,123 +24,123 @@ public class UserFacade {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
     private static final UserFacade instance = new UserFacade();
     
-    public UserFacade(){}
+    public UserFacade() {
+    }
     
-    public static UserFacade getInstance(){
+    public static UserFacade getInstance() {
         return instance;
     }
-    public UserDTO getUserDTO(Integer id)
-    {
+
+    public UserDTO getUserDTO(Integer id) {
         EntityManager em = emf.createEntityManager();
         
-        try
-        {
+        try {
             em.getTransaction().begin();
             User u = em.find(User.class, id);
+            
+            System.out.println(u);
+
+            //System.out.println(u);
             UserDTO udto = new UserDTO(u);
             return udto;
-
-        }
-        finally
-        {
+            
+        } finally {
             em.close();
-        }    
+        }        
     }
     
-        public List<User> getUsers()
-    {
+    public List<UserDTO> getUsers() {
         EntityManager em = emf.createEntityManager();
+        
 
+        List<UserDTO> usersDTO = new ArrayList();
+        
+        em.getTransaction().begin();
+        List<User> users = em.createQuery("Select p from User p").getResultList();
+        em.getTransaction().commit();
+        for (User user : users) {
+            UserDTO uDTO = new UserDTO(user);
+            usersDTO.add(uDTO);
+
+        }
+        em.close();
+        return usersDTO;
+    }
+    
+    public List<User> getUsersByRoleAdmin() {
+        EntityManager em = emf.createEntityManager();
+        
         List<User> users = null;
         
-        try
-        {
-            em.getTransaction().begin();
-            users = em.createQuery("Select u from users u").getResultList();
-            em.getTransaction().commit();
-            return users;
-        }
-        finally
-        {
-            em.close();
-        }
-    }
-        
-        public List<User> getUsersByRoleAdmin() {
-            EntityManager em = emf.createEntityManager();
-           
-            List<User> users = null;
-            
-            try
-        {
+        try {
             em.getTransaction().begin();
             users = em.createQuery("Select p from User p WHERE p.roleList = :Admin").getResultList();
             em.getTransaction().commit();
             return users;
-        }
-        finally
-        {
-            em.close();
-        }
-        }
-        
-        public List<User> getUsersByRoleUser() {
-            EntityManager em = emf.createEntityManager();
-           
-            List<User> users = null;
-            
-            try
-        {
-            em.getTransaction().begin();
-            users = em.createQuery("Select p from User p WHERE p.roleList = :User").getResultList();
-            em.getTransaction().commit();
-            return users;
-        }
-        finally
-        {
-            em.close();
-        }
-        }
-        
-        public User addUser(User u)
-    {
-        EntityManager em = emf.createEntityManager();
-       
-        try
-        {
-            em.getTransaction().begin();
-            em.persist(u);
-            em.getTransaction().commit();
-            return u;
-        }
-        finally
-        {
+        } finally {
             em.close();
         }
     }
     
-    public User editUser(User user)
-    {
+    public List<User> getUsersByRoleUser() {
         EntityManager em = emf.createEntityManager();
-
-        try
-        {
+        
+        List<User> users = null;
+        
+        try {
+            em.getTransaction().begin();
+            users = em.createQuery("Select p from User p WHERE p.roleList = :User").getResultList();
+            em.getTransaction().commit();
+            return users;
+        } finally {
+            em.close();
+        }
+    }
+    
+    public User addUser(User u) {
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            em.getTransaction().begin();
+            em.persist(u);
+            em.getTransaction().commit();
+            return u;
+        } finally {
+            em.close();
+        }
+    }
+    
+    public User editUser(User user) {
+        EntityManager em = emf.createEntityManager();
+        
+        try {
             em.getTransaction().begin();
             User u = em.find(User.class, user.getId());
-            if(u != null)
-            {
+            if (u != null) {
                 u = user;
                 em.merge(u);
                 em.getTransaction().commit();
                 return u;
             }
-        }
-        finally
-        {
+        } finally {
             em.close();
-        }  
+        }        
         
         return null;
+    }
+
+    public User deleteUser(int id) {
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            em.getTransaction().begin();
+            User u = em.find(User.class, id);
+            em.remove(u);
+            em.getTransaction().commit();
+            return u;
+        } finally {
+            em.close();
+        }
     }
     
     public User getVeryfiedUser(String username, String password) throws AuthenticationException {
@@ -151,5 +156,5 @@ public class UserFacade {
         }
         return user;
     }
-
+    
 }

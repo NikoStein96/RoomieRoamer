@@ -19,131 +19,118 @@ public class UserDTO
     private String userPass;
     private String desc;
     private String picRef;
-    private List<RoleDTO> roleList = new ArrayList();
-    private List<InterestDTO> interests = new ArrayList();
-    private List<User> matches = new ArrayList();
-    private List<User> ignored = new ArrayList();
-    private List<User> liked = new ArrayList();
+    private String roleList = "";
+    private String interests = "";
+    private String liked = "";
+    private String ignored = "";
+    private String matches = "";
     
     public UserDTO(User user) {
-        System.out.println(user);
+        //System.out.println(user);
         this.id = user.getId();
         this.userName = user.getUserName();
         this.userPass = user.getUserPass();
         this.desc = user.getDesc();
         this.picRef = user.getPicRef();
-        this.matches = user.getMatches();
-        this.ignored = user.getIgnored();
-        this.liked = user.getLiked();
-        for(Role r : user.getRoleList()){
-            this.roleList.add(new RoleDTO(r));
-        
+        for (String role : user.getRolesAsStrings()) {
+            roleList += role + " ";
         }
-        for(Interest i : user.getInterests()) {
-            this.interests.add(new InterestDTO(i));
+        for (String interest : user.getInterestsAsStrings()) {
+            interests += interest + " ";
         }
-
+        for (String like : user.getLikedAsStrings()) {
+            liked += like + " ";
+        }
+        for (String ignore : user.getIgnoredAsStrings()) {
+            ignored += ignore + " ";
+        }
+        for (String match : user.getMatchesAsStrings()) {
+            matches += match + " ";
+        }
     }
 
-    public List<User> getMatches()
-    {
-        return matches;
-    }
-
-    public void setMatches(List<User> matches)
-    {
-        this.matches = matches;
-    }
-
-    public List<User> getIgnored()
-    {
-        return ignored;
-    }
-
-    public void setIgnored(List<User> ignored)
-    {
-        this.ignored = ignored;
-    }
-
-    public List<User> getLiked()
-    {
-        return liked;
-    }
-
-    public void setLiked(List<User> liked)
-    {
-        this.liked = liked;
-    }
-
-    public Integer getId()
-    {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id)
-    {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getUserName()
-    {
+    public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName)
-    {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    public String getUserPass()
-    {
+    public String getUserPass() {
         return userPass;
     }
 
-    public void setUserPass(String userPass)
-    {
+    public void setUserPass(String userPass) {
         this.userPass = userPass;
     }
 
-    public String getDesc()
-    {
+    public String getDesc() {
         return desc;
     }
 
-    public void setDesc(String desc)
-    {
+    public void setDesc(String desc) {
         this.desc = desc;
     }
 
-    public String getPicRef()
-    {
+    public String getPicRef() {
         return picRef;
     }
 
-    public void setPicRef(String picRef)
-    {
+    public void setPicRef(String picRef) {
         this.picRef = picRef;
     }
 
-    public List<RoleDTO> getRoleList()
-    {
+    public String getRoleList() {
         return roleList;
     }
 
-    public void setRoleList(List<RoleDTO> roleList)
-    {
+    public void setRoleList(String roleList) {
         this.roleList = roleList;
     }
 
-    public List<InterestDTO> getInterests()
-    {
+    public String getInterests() {
         return interests;
     }
 
-    public void setInterests(List<InterestDTO> interests)
-    {
+    public void setInterests(String interests) {
         this.interests = interests;
     }
+
+    public String getLiked() {
+        return liked;
+    }
+
+    public void setLiked(String liked) {
+        this.liked = liked;
+    }
+
+    public String getIgnored() {
+        return ignored;
+    }
+
+    public void setIgnored(String ignored) {
+        this.ignored = ignored;
+    }
+
+    public String getMatches() {
+        return matches;
+    }
+
+    public void setMatches(String matches) {
+        this.matches = matches;
+    }
+
+
+    
     
                     
 }
