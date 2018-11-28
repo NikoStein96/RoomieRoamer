@@ -10,6 +10,7 @@ import com.google.gson.GsonBuilder;
 import entity.User;
 import entity.UserDTO;
 import entity.UserFacade;
+import java.sql.SQLException;
 import javax.persistence.Persistence;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -65,8 +66,8 @@ public class UserEndpoint
     @GET
     @Path("/allasmap")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUsers() {
-        return Response.ok().entity(gson.toJson(uf.getUsers())).build();
+    public Response getUsers() throws SQLException, ClassNotFoundException {
+        return Response.ok().entity(uf.getUsers()).build();
     }
     
     @POST

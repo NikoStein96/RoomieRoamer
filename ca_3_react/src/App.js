@@ -7,7 +7,7 @@ import FindUser from "./FindUser";
 
 import MatchedUsers from "./components/MatchedUsers";
 
-import AdminGetAllUsers from "./AdminGetAllUsers"
+import Admin from "./Admin"
 
 import { HashRouter as Router, Route, Link } from "react-router-dom";
 
@@ -76,7 +76,7 @@ const App = () => (
 
       <Route path="/messages" exact component={MatchedUsers} />
 
-      <Route path="/admin" exact component={AdminGetAllUsers} />
+      <Route path="/admin" exact component={Admin} />
 
     </div>
   </Router>
