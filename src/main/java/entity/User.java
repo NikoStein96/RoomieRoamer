@@ -138,6 +138,7 @@ public class User implements Serializable
     {
     }
     
+    
     public User(UserDTO dto){
         this.id=dto.getId();
         this.userName=dto.getUserName();

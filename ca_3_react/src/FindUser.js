@@ -16,37 +16,28 @@ export default class FindUser extends Component {
     fetch(URL)
       .then(response => response.json())
       .then(json => {
-        this.setState({ json: json });
+        console.log(json);
+        if(json.name === undefined){
+          document.getElementById("info").innerHTML = "No user with that userID";
+        }
+        else{
+        document.getElementById("info").innerHTML =
+          "Name: " + json.name + "  mass: " + json.mass;
+        }
       });
   };
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="number"
-            value={this.state.value}
-            onChange={this.handleChange}
-          />
+      <form onSubmit={this.handleSubmit}>
+        
 
           <input type="submit" value="Submit" />
 
-          <p id="info" />
-        </form>
-
-        <p>
-          {this.state.json.id} <br />
-          {this.state.json.userName} <br />
-          {this.state.json.desc} <br />
-          {this.state.json.picRef} <br />
-          {this.state.json.roleList} <br />
-          {this.state.json.interests} <br />
-          {this.state.json.liked} <br />
-          {this.state.json.ignored} <br />
-          {this.state.json.matches}
-        </p>
-      </div>
+        <input type="submit" value="Submit" />
+        <p>We will fetch user with ID: {this.state.value}</p>
+        <p id="info" />
+      </form>
     );
   }
 }

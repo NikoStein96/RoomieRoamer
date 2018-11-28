@@ -1,5 +1,6 @@
 package entity;
 
+import Resources.DBAccess.Connector;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -7,9 +8,16 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import exceptions.AuthenticationException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import static java.time.Clock.offset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
 
 /**
  * TODO: Liste over potentielle personer du kan like Liste over LIKEDE personer
@@ -50,21 +58,33 @@ public class UserFacade {
             em.close();
         }        
     }
-    
-    public List<UserDTO> getUsers() {
+    public String getUsers() throws SQLException, ClassNotFoundException {
         EntityManager em = emf.createEntityManager();
-        
-        List<UserDTO> usersDTO = new ArrayList();
-        
-        em.getTransaction().begin();
-        List<User> users = em.createQuery("Select p from User p").getResultList();
-        em.getTransaction().commit();
-        for (User user : users) {
-            UserDTO uDTO = new UserDTO(user);
-            usersDTO.add(uDTO);
+        JSONArray JA = new JSONArray();
+        //em.getTransaction().begin();
+        List<User> users = new ArrayList();
+        Boolean keepRunning = true;
+        int counter = 1;
+        while(keepRunning){
+            users.add(em.find(User.class, counter));
+            keepRunning = (em.find(User.class, ++counter) != null);
         }
+        //em.getTransaction().commit();
+        for (User user : users) {
+            JSONObject item = new JSONObject();
+            item.put("id" , user.getId());
+            item.put("Name", user.getUserName());
+            item.put("Desc", user.getDesc());
+           // item.put("Desc", em.find(User.class, "desc"));
+            
+            JA.add(item);
+//            UserDTO uDTO = new UserDTO(user);
+//            JA.add(uDTO);
+        }
+        JSONObject res = new JSONObject();
+        res.put("Result", JA);
         em.close();
-        return usersDTO;
+        return res.toJSONString();
     }
     
     public List<User> getUsersByRoleAdmin() {
