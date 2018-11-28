@@ -12,8 +12,8 @@ import java.util.List;
  *
  * @author Martin
  */
-public class UserDTO
-{
+public class UserDTO {
+
     private Integer id;
     private String userName;
     private String userPass;
@@ -24,7 +24,7 @@ public class UserDTO
     private String liked = "";
     private String ignored = "";
     private String matches = "";
-    
+
     public UserDTO(User user) {
         //System.out.println(user);
         this.id = user.getId();
@@ -35,17 +35,25 @@ public class UserDTO
         for (String role : user.getRolesAsStrings()) {
             roleList += role + " ";
         }
+        if(user.getInterestsAsStrings() != null){
         for (String interest : user.getInterestsAsStrings()) {
             interests += interest + " ";
         }
+        }
+        if(user.getLikedAsStrings() != null){
         for (String like : user.getLikedAsStrings()) {
             liked += like + " ";
         }
+        }
+        if(user.getIgnoredAsStrings() != null){
         for (String ignore : user.getIgnoredAsStrings()) {
             ignored += ignore + " ";
         }
+        }
+        if(user.getMatchesAsStrings() != null){
         for (String match : user.getMatchesAsStrings()) {
             matches += match + " ";
+        }
         }
     }
 
@@ -129,8 +137,4 @@ public class UserDTO
         this.matches = matches;
     }
 
-
-    
-    
-                    
 }
