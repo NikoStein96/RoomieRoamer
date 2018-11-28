@@ -11,6 +11,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 import Resources.*;
+import entity.UserFacade;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.ws.rs.PathParam;
@@ -69,5 +70,18 @@ public class DemoResource
     {
         return new Resources.DBAccess.dbData().getData(offset);
     }
-    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("test")
+    public String getTestData() throws SQLException, ClassNotFoundException
+    {
+        return new UserFacade().getTest().getQuestionnaire().getQuestionnaireArea().getCityInfoName();
+    }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("testPoma")
+    public String getTestPoma() throws SQLException, ClassNotFoundException
+    {
+        return new UserFacade().getPomaAsString();
+    }
 }

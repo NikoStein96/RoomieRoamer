@@ -31,11 +31,20 @@ public class SetupTestUsers {
 //    
 //    User user = new User("user", "test123");
 //    user.addRole(userRole);
+    Budget low = new Budget("2000-3000");
+    Budget medium = new Budget("3000-4000");
+    Budget high = new Budget("4000-5000");
+    CleanLevel messy = new CleanLevel("Messy");
+    CleanLevel tidy = new CleanLevel("Tidy");
+    Reason money = new Reason("Money");
+    Reason friends = new Reason("Friends");
+    User user = new User("Charlie", "lol123", "Testing", "picRef");
+   // user.addRole(userRole);
 //    User admin = new User("admin", "test123");
 //    admin.addRole(adminRole);
 //    User both = new User("user_admin", "test123");
 //    both.addRole(userRole);
-////    both.addRole(adminRole);
+//    both.addRole(adminRole);
 //    em.persist(userRole);
 //    em.persist(adminRole);
 //    em.persist(smoking);
@@ -46,6 +55,14 @@ public class SetupTestUsers {
 //    em.persist(music);
 //    em.persist(art);
 //    em.persist(user);
+    em.persist(user);
+    em.persist(low);
+    em.persist(medium);
+    em.persist(high);
+    em.persist(messy);
+    em.persist(tidy);
+    em.persist(money);
+    em.persist(friends);
 //    em.persist(admin);
 //    em.persist(both);
 
@@ -127,7 +144,7 @@ public class SetupTestUsers {
 //    User user = em.find(User.class, "user");
 //    System.out.println("Testing user with password: " + user.verifyPassword("test123"));
 //    System.out.println("Created TEST Users");
-   
+   em.close();
   }
 
 }

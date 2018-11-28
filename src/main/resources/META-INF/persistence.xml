@@ -5,6 +5,11 @@
     <class>entity.Role</class>
     <class>entity.User</class>
     <class>entity.Interest</class>
+    <class>entity.CityInfo</class>
+    <class>entity.Budget</class>
+    <class>entity.Reason</class>
+    <class>entity.CleanLevel</class>
+    <class>entity.Questionnaire</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://159.65.56.14/RoomieRoamer?useSSL=false"/>

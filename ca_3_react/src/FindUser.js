@@ -2,7 +2,7 @@ import React, { Component } from "react";
 export default class FindUser extends Component {
   constructor(props) {
     super(props);
-    this.state = { value: "" };
+    this.state = { value: "", json: [] };
   }
 
   handleChange = event => {
@@ -12,7 +12,7 @@ export default class FindUser extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    var URL = "https://swapi.co/api/people/" + this.state.value;
+    var URL = "http://localhost:8084/RoomieRoamer/api/User/" + this.state.value;
     fetch(URL)
       .then(response => response.json())
       .then(json => {
@@ -47,11 +47,7 @@ export default class FindUser extends Component {
       <form onSubmit={this.handleSubmit}>
         
 
-        <input
-          type="number"
-          value={this.state.value}
-          onChange={this.handleChange}
-        />
+          <input type="submit" value="Submit" />
 
         <input type="submit" value="Submit" />
         <h3>We will fetch user with ID: {this.state.value}</h3>
