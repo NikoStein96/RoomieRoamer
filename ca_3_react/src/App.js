@@ -4,7 +4,8 @@ import DummyData from "./DummyData";
 import UserPage from "./UserPage";
 import Home from "./Home";
 import FindUser from "./FindUser";
-import AdminGetAllUsers from "./AdminGetAllUsers"
+import AdminGetAllUsers from "./AdminGetAllUsers";
+import GetUserDesc from "./GetUserDesc";
 import { HashRouter as Router, Route, Link } from "react-router-dom";
 
 class LogIn extends Component {
@@ -59,6 +60,9 @@ const App = () => (
           <li>
             <Link to="/admin/">Admin</Link>
           </li>
+          <li>
+            <Link to="/getuserdesc/">GetUserDesc</Link>
+          </li>
         </ul>
       </nav>
 
@@ -68,6 +72,7 @@ const App = () => (
       <Route path="/dummydata" exact component={DummyData} />
       <Route path="/finduser" exact component={FindUser} />
       <Route path="/admin" exact component={AdminGetAllUsers} />
+      <Route path="/getuserdesc" exact component={GetUserDesc} />
     </div>
   </Router>
 );
