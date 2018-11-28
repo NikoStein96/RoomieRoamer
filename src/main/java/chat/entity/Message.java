@@ -6,6 +6,7 @@
 package chat.entity;
 
 import entity.Budget;
+import entity.User;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -33,19 +34,33 @@ public class Message implements Serializable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
-    @JoinColumn(name = "msg_id")
-    final private Integer id;
+    @Column(name = "msg_id")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Column(name = "msg", length = 20)
     final private String msg;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="sender")
+    private User sender;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="chat")
+    private Chat chat;
 
-    public Message(Integer id, String msg)
+    public Message(String msg, User sender, Chat chat)
+    {
+        this.msg = msg;
+        this.sender = sender;
+        this.chat = chat;
+    }
+    
+    public Message(Integer id, String msg, User sender, Chat chat)
     {
         this.id = id;
         this.msg = msg;
+        this.sender = sender;
+        this.chat = chat;
     }
-
     
     public Integer getId()
     {
@@ -55,6 +70,11 @@ public class Message implements Serializable
     public String getMsg()
     {
         return msg;
+    }
+
+    public User getSender()
+    {
+        return sender;
     }
 
 }
