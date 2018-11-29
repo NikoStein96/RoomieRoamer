@@ -15,6 +15,16 @@
   width: 100%;
 }
 
+.sent_msg p {
+  background: lightblue none repeat scroll 0 0;
+  border-radius: 3px;
+  color: #646464;
+  font-size: 14px;
+  margin: 0;
+  padding: 5px 10px 5px 12px;
+  width: 100%;
+}
+
 .time_date {
   color: #747474;
   display: block;
@@ -23,7 +33,7 @@
 }
 
 .received_width_msg {
-  width: 40%;
+  width: 25%;
 }
 .mesgs {
   float: left;
@@ -37,13 +47,20 @@
 }
 .sent_msg {
   float: right;
-  width: 46%;
+  width: 20%;
 }
 
 .messaging {
   padding: 0 0 50px 0;
 }
 .msg_history {
-  height: 518px;
+  height: 65vh;
+  width: 84%;
   overflow-y: auto;
+  border-style: solid;
+  border-color: rgb(20, 75, 20);
+  border-radius: 25px;
+  background-image: url("../assets/img/logo.png");
+  background-repeat: no-repeat;
+  background-position: center;
 }
