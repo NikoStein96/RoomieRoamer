@@ -58,7 +58,8 @@ public class UserFacade {
             em.close();
         }        
     }
-    public String getUsers() throws SQLException, ClassNotFoundException {
+
+     public String getUsers() throws SQLException, ClassNotFoundException {
         EntityManager em = emf.createEntityManager();
         JSONArray JA = new JSONArray();
         //em.getTransaction().begin();
@@ -80,38 +81,31 @@ public class UserFacade {
             JA.add(item);
 //            UserDTO uDTO = new UserDTO(user);
 //            JA.add(uDTO);
-     public User getUser(Integer id) {
-        EntityManager em = emf.createEntityManager();
-        
-        try {
-            em.getTransaction().begin();
-            User u = em.find(User.class, id);
-            return u;
-            
-        } finally {
-            em.close();
-        }        
-    }
-    
-    public List<UserDTO> getUsers() {
-        EntityManager em = emf.createEntityManager();
-        
-
-        List<UserDTO> usersDTO = new ArrayList();
-        
-        em.getTransaction().begin();
-        List<User> users = em.createQuery("Select p from User p").getResultList();
-        em.getTransaction().commit();
-        for (User user : users) {
-            UserDTO uDTO = new UserDTO(user);
-            usersDTO.add(uDTO);
-
         }
         JSONObject res = new JSONObject();
         res.put("Result", JA);
         em.close();
         return res.toJSONString();
     }
+
+
+
+public User getUser(Integer id) {
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            em.getTransaction().begin();
+            User u = em.find(User.class, id);
+
+            return u;
+            
+        } finally {
+            em.close();
+        
+        }
+        }        
+    
+
     
     public List<User> getUsersByRoleAdmin() {
         EntityManager em = emf.createEntityManager();
@@ -286,19 +280,6 @@ public class UserFacade {
         }
         return res;
     }
-    public User getUser(Integer id) {
-        EntityManager em = emf.createEntityManager();
-        
-        try {
-            em.getTransaction().begin();
-            User u = em.find(User.class, id);
-
-            return u;
             
-        } finally {
-            em.close();
-        
-        }
-        }        
     
 }

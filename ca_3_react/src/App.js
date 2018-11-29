@@ -4,7 +4,6 @@ import DummyData from "./DummyData";
 import UserPage from "./UserPage";
 import Home from "./Home";
 import FindUser from "./FindUser";
-import AdminGetAllUsers from "./AdminGetAllUsers";
 import GetUserDesc from "./GetUserDesc";
 import MatchedUsers from "./components/MatchedUsers";
 import Admin from "./Admin"

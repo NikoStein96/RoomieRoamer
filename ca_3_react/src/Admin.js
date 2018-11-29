@@ -5,7 +5,7 @@ import './Admin.css';
 
 
 
-const url = 'http://localhost:8084/RoomieRoamer/api/User/allasmap';
+const url = 'http://localhost:8080/RoomieRoamer/api/User/allasmap';
 
 
 class Admin extends Component {
@@ -17,7 +17,7 @@ class Admin extends Component {
 
     }
     deleteDesc = (id) => {
-        fetch('http://localhost:8084/RoomieRoamer/api/User/' + id, {
+        fetch('http://localhost:8080/RoomieRoamer/api/User/' + id, {
   method: 'put',
   headers: {'Content-Type': 'application/json'},
   body: JSON.stringify({desc: ''})
