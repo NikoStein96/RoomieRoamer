@@ -21,8 +21,23 @@ export default class FindUser extends Component {
           document.getElementById("info").innerHTML = "No user with that userID";
         }
         else{
-        document.getElementById("info").innerHTML =
-          "Name: " + json.name + "  mass: " + json.mass;
+          
+        document.getElementById("th1").innerHTML =
+        // eslint-disable-next-line
+        "<h1>Name</h1> ";
+
+        document.getElementById("th2").innerHTML =
+        // eslint-disable-next-line
+        "<h1>Mass</h1> ";
+        
+        document.getElementById("info1").innerHTML =
+        // eslint-disable-next-line
+        json.name;
+        
+        document.getElementById("info2").innerHTML =
+        // eslint-disable-next-line
+        json.mass;
+
         }
       });
   };
@@ -35,8 +50,14 @@ export default class FindUser extends Component {
           <input type="submit" value="Submit" />
 
         <input type="submit" value="Submit" />
-        <p>We will fetch user with ID: {this.state.value}</p>
-        <p id="info" />
+        <h3>We will fetch user with ID: {this.state.value}</h3>
+
+        
+        <p id="th1" align="center"/>
+        <p id="info1" align="center"/>
+        <p id="th2" align="center"/>
+        <p id="info2" align="center"/>
+        
       </form>
     );
   }

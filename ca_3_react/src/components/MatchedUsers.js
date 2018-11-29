@@ -17,12 +17,14 @@ class MatchedUsers extends Component {
               <img
                 src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
                 class="ui image"
+                alt="missingPicture"
               />
             </div>
             <div class="eight wide column">
               <img
                 src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
                 class="ui image"
+                alt="missingPicture"
               />
             </div>
           </div>
@@ -31,12 +33,14 @@ class MatchedUsers extends Component {
               <img
                 src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
                 class="ui image"
+                alt="missingPicture"
               />
             </div>
             <div class="eight wide column">
               <img
                 src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
                 class="ui image"
+                alt="missingPicture"
               />
             </div>
           </div>

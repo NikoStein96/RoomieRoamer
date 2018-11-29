@@ -80,6 +80,32 @@ public class UserFacade {
             JA.add(item);
 //            UserDTO uDTO = new UserDTO(user);
 //            JA.add(uDTO);
+     public User getUser(Integer id) {
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            em.getTransaction().begin();
+            User u = em.find(User.class, id);
+            return u;
+            
+        } finally {
+            em.close();
+        }        
+    }
+    
+    public List<UserDTO> getUsers() {
+        EntityManager em = emf.createEntityManager();
+        
+
+        List<UserDTO> usersDTO = new ArrayList();
+        
+        em.getTransaction().begin();
+        List<User> users = em.createQuery("Select p from User p").getResultList();
+        em.getTransaction().commit();
+        for (User user : users) {
+            UserDTO uDTO = new UserDTO(user);
+            usersDTO.add(uDTO);
+
         }
         JSONObject res = new JSONObject();
         res.put("Result", JA);
@@ -229,6 +255,25 @@ public class UserFacade {
         return poma;
     }
     
+    
+   public String getPomaAsJSON(int id){
+       EntityManager em = emf.createEntityManager();
+       User user = em.find(User.class, id);
+       JSONArray jsnArr = new JSONArray();
+        for(User usr: getPoma(user)){
+            JSONObject jsn = new JSONObject();
+            
+            jsn.put("Id", usr.getId());
+            jsn.put("Name", usr.getUserName());
+            jsn.put("Desc", usr.getDesc());
+            jsnArr.add(jsn);
+        }
+        JSONObject jon = new JSONObject();
+        jon.put("results", jsnArr);
+        
+        return jon.toJSONString();
+   } 
+   
     public String getPomaAsString()
     {
         EntityManager em = emf.createEntityManager();
