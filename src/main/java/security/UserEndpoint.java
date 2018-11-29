@@ -99,4 +99,19 @@ public class UserEndpoint
         User us = uf.deleteUser(id);
         return Response.ok().entity(gson.toJson(us)).build();
     }
+    
+    @PUT
+    @Path("/like/{id}/{idPressed}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addLiked(@PathParam("id")int id, @PathParam("idPressed") int idPressed) throws Exception{
+        UserDTO uDTO = uf.assignUserLike(id, idPressed);
+        return Response.ok().entity(gson.toJson(uDTO)).build();
+    }
+    @PUT
+    @Path("/ignore/{id}/{idPressed}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addIgnore(@PathParam("id")int id, @PathParam("idPressed") int idPressed) throws Exception{
+        UserDTO uDTO = uf.assignUserIgnore(id, idPressed);
+        return Response.ok().entity(gson.toJson(uDTO)).build();
+    }
 }
