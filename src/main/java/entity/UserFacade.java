@@ -16,6 +16,7 @@ import static java.time.Clock.offset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.Query;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
@@ -281,5 +282,52 @@ public User getUser(Integer id) {
         return res;
     }
             
+    
+    public UserDTO assignUserLike(int userID, int likedID) throws Exception{
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        
+        User loggedIn = em.find(User.class, userID);
+        User liked = em.find(User.class, likedID);
+        UserDTO uDTO;
+        
+        if(liked.getLiked().contains(loggedIn)){
+            loggedIn.addMatched(liked);
+            liked.addMatched(loggedIn);
+            uDTO = new UserDTO(loggedIn);
+            em.merge(loggedIn);
+        }
+        
+        if(!loggedIn.getLiked().contains(liked)){
+        loggedIn.addLiked(liked);
+        uDTO = new UserDTO(loggedIn);
+        em.merge(loggedIn);
+        } else {
+            throw new Exception("Relation between users already exist");
+        }
+        em.getTransaction().commit();
+        em.close();
+        return uDTO;
+    }
+    
+    public UserDTO assignUserIgnore(int userID, int ignoredID) throws Exception{
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        
+        User loggedIn = em.find(User.class, userID);
+        User ignored = em.find(User.class, ignoredID);
+        UserDTO uDTO;
+        
+        if(!loggedIn.getIgnored().contains(ignored)){
+        loggedIn.addIgnored(ignored);
+        uDTO = new UserDTO(loggedIn);
+        em.merge(loggedIn);
+        } else {
+            throw new Exception("Relation between users already exist");
+        }
+        em.getTransaction().commit();
+        em.close();
+        return uDTO;
+    }
     
 }
