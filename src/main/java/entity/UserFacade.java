@@ -130,7 +130,7 @@ public class UserFacade {
         }
     }
     
-    public User editUser(User user) {
+    public UserDTO editUser(User user) {
         EntityManager em = emf.createEntityManager();
         
         try {
@@ -139,8 +139,10 @@ public class UserFacade {
             if (u != null) {
                 u = user;
                 em.merge(u);
+                UserDTO uDTO = new UserDTO(u);
                 em.getTransaction().commit();
-                return u;
+                return uDTO
+                        ;
             }
         } finally {
             em.close();
@@ -239,5 +241,19 @@ public class UserFacade {
         }
         return res;
     }
+    public User getUser(Integer id) {
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            em.getTransaction().begin();
+            User u = em.find(User.class, id);
+
+            return u;
+            
+        } finally {
+            em.close();
+        
+        }
+        }        
     
 }

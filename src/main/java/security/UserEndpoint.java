@@ -86,11 +86,12 @@ public class UserEndpoint
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateUserDesc( String content, @PathParam("id") int id)  {
-        UserDTO newUser = gson.fromJson(content, UserDTO.class);
-        UserDTO savedUser = uf.getUserDTO(id);
+        User newUser = gson.fromJson(content, User.class);
+        User savedUser = uf.getUser(id);
         if(newUser.getDesc()!=null)
             savedUser.setDesc(newUser.getDesc());
-        return Response.ok().entity(gson.toJson(savedUser)).build();
+        UserDTO uDTO = uf.editUser(savedUser);
+        return Response.ok().entity(gson.toJson(uDTO)).build();
     }
     @DELETE
     @Path("/{id}")
