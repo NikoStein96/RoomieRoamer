@@ -233,7 +233,9 @@ public class UserFacade {
         for(User usr: getPoma(user)){
             JSONObject jsn = new JSONObject();
             
+            jsn.put("Id", usr.getId());
             jsn.put("Name", usr.getUserName());
+            jsn.put("Desc", usr.getDesc());
             jsnArr.add(jsn);
         }
         JSONObject jon = new JSONObject();

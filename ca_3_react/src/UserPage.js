@@ -15,54 +15,70 @@ export default class UserPage extends Component {
     }
 */
     handleChangeUP = event => {
-      console.log(event.target.value);
+      console.log("this is event.target.value: "+event.target.value);
       this.setState({ value: event.target.value });
     };
-
-    
-componentDidMount() {
+componentWillMount(){
+  this.handleSubmitUP();
+}
+   
+componentDidUpdate() {
   var URL = "http://localhost:8080/RoomieRoamer/api/User/1/poma";
       fetch(URL)
         .then(response => response.json())
         .then(json => {
           console.log(json);
-          if(json === undefined){
-            document.getElementById("desc1").innerHTML = "No user with that userID";
+          try{
+            if(json === undefined){
+              document.getElementById("desc1").innerHTML = "Out of luck. Can't find a user";
+            }
+            else{
+              console.log(nr);
+            document.getElementById("desc1").innerHTML = json.results[nr].Name + "</br>" + 
+            json.results[nr].Id + "</br>" + json.results[nr].Desc;
+            nr--;
+            }
           }
-          else{
-          nr++;  
-          
-          document.getElementById("desc1").innerHTML = json.results[nr].Name;
-}
-// eslint-disable-next-line
-             
-
-
+        catch{
+          document.getElementById("desc1").innerHTML = "Out of luck. Can't find a user";
+        }
 });
 }
-    /*
-    handleSubmitUP = event => {
-      event.preventDefault();
+    
+
+
+    handleSubmitUP() {
       var URL = "http://localhost:8080/RoomieRoamer/api/User/1/poma";
       fetch(URL)
         .then(response => response.json())
         .then(json => {
           console.log(json);
+          try{
           if(json === undefined){
-            document.getElementById("desc1").innerHTML = "No user with that userID";
+            document.getElementById("desc1").innerHTML = "Out of luck. Can't find a user";
           }
           else{
-            
-          
-          document.getElementById("desc1").innerHTML = json.results[nr].Name;
-        
-          // eslint-disable-next-line
-             
-
+            console.log(nr);
+          document.getElementById("desc1").innerHTML = json.results[nr].Name + "</br>" + 
+          json.results[nr].Id + "</br>" + json.results[nr].Desc; 
+          nr--;
           }
-        });
+        }
+      catch{
+        document.getElementById("desc1").innerHTML = "Out of luck. Can't find a user";
+      }
+      });
     };
-  */
+  
+
+nrIncrement(){
+  nr++;
+  console.log(nr);
+}
+nrIncrement2(){
+  nr++;
+}
+
     render() {
       return (
         <div>
@@ -76,17 +92,23 @@ componentDidMount() {
         <br/>
         <br/>
         <br/>
-  <form onSubmit={this.componentDidMount()}>
-        <input type="submit" value="Search" onChange={this.handleChangeUP}>
+  <form onClick={this.nrIncrement()}>
+        <input id="likebtn" type="submit" value="Like">
         </input>
-        <h3>We will fetch user describtion with ID: {nr}</h3>
-      </form>
-      <p id="desc1" align="center">no data yet</p>
+  </form>
+
+    <form onClick={this.nrIncrement2()}>
+        <input id="dislikebtn" type="submit" value="Dislike">
+        </input>
+  </form>
+      <p id="desc1" align="center">No potential matches yet</p>
+     
+      
       </div>  
       )
     }
   }
-  let nr = 0;
+  let nr = -2;
 
  
       
