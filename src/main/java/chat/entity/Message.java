@@ -39,13 +39,17 @@ public class Message implements Serializable
     @Basic(optional = false)
     @NotNull
     @Column(name = "msg", length = 20)
-    final private String msg;
+    private String msg;
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="sender")
     private User sender;
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="chat")
     private Chat chat;
+
+    public Message()
+    {
+    }
 
     public Message(String msg, User sender, Chat chat)
     {

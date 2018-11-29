@@ -1,5 +1,6 @@
 package utils;
 
+import chat.entity.*;
 import entity.*;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -18,7 +19,7 @@ public class SetupTestUsers {
     
        
     em.getTransaction().begin();
-    Role userRole = new Role("user");
+   // Role userRole = new Role("user");
 //    Role adminRole = new Role("admin");
 //    Interest smoking = new Interest("smoking");
 //    Interest soccer = new Interest("soccer");
@@ -27,14 +28,14 @@ public class SetupTestUsers {
 //    Interest gaming = new Interest("gaming");
 //    Interest music = new Interest("music");
 //    Interest art = new Interest("art");
-    Budget low = new Budget("2000-3000");
-    Budget medium = new Budget("3000-4000");
-    Budget high = new Budget("4000-5000");
-    CleanLevel messy = new CleanLevel("Messy");
-    CleanLevel tidy = new CleanLevel("Tidy");
-    Reason money = new Reason("Money");
-    Reason friends = new Reason("Friends");
-    User user = new User("Charlie", "lol123", "Testing", "picRef");
+//    Budget low = new Budget("2000-3000");
+//    Budget medium = new Budget("3000-4000");
+//    Budget high = new Budget("4000-5000");
+//    CleanLevel messy = new CleanLevel("Messy");
+//    CleanLevel tidy = new CleanLevel("Tidy");
+//    Reason money = new Reason("Money");
+//    Reason friends = new Reason("Friends");
+//    User user = new User("Charlie", "lol123", "Testing", "picRef");
    // user.addRole(userRole);
 //    User admin = new User("admin", "test123");
 //    admin.addRole(adminRole);
@@ -50,16 +51,21 @@ public class SetupTestUsers {
 //    em.persist(gaming);
 //    em.persist(music);
 //    em.persist(art);
-    em.persist(user);
-    em.persist(low);
-    em.persist(medium);
-    em.persist(high);
-    em.persist(messy);
-    em.persist(tidy);
-    em.persist(money);
-    em.persist(friends);
+//    em.persist(user);
+//    em.persist(low);
+//    em.persist(medium);
+//    em.persist(high);
+//    em.persist(messy);
+//    em.persist(tidy);
+//    em.persist(money);
+//    em.persist(friends);
 //    em.persist(admin);
 //    em.persist(both);
+Message msg = new Message();
+Chat chat = new Chat();
+
+em.persist(msg);
+em.persist(chat);
     em.getTransaction().commit();
 //    System.out.println("PW: " + user.getUserPass());
 //    System.out.println("Testing user with OK password: " + user.verifyPassword("test"));

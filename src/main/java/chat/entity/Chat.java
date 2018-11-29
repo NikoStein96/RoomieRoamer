@@ -17,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import javax.validation.constraints.NotNull;
 
@@ -34,19 +35,30 @@ private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
     @Column(name = "chat_id")
-    final private Integer id;
+    private Integer id;
     @OneToMany
     @Basic(optional = false)
+    private User user1;
+    @OneToMany
+    @Basic(optional = false)
+    private User user2;
+    @Transient
     private List<Message> history = new ArrayList();
-    @OneToMany
-    @Basic(optional = false)
-    private final User user1;
-    @OneToMany
-    @Basic(optional = false)
-    private final User user2;
+    @Transient
     private Message lastMSG;
+    @Transient
     private Message newMSG;
 
+    public Chat()
+    {
+    }
+    
+    public Chat(User owner, User partner)
+    {
+        this.user1 = owner;
+        this.user2 = partner;
+    }
+    
     public Chat(Integer id, User owner, User partner)
     {
         this.id = id;

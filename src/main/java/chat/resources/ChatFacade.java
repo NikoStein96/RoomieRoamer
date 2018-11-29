@@ -24,11 +24,11 @@ public class ChatFacade
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
     EntityManager em = emf.createEntityManager();
     
-    private Chat getChat(int id){
+    public Chat getChat(int id){
         return em.find(Chat.class, id);
     }
     
-    private boolean isNewer(Chat chat){
+    public boolean isNewer(Chat chat){
         if(!chat.getLastMSG().equals(chat.getNewMSG()) && chat.getNewMSG() != null){ 
             chat.setLastMSG(chat.getNewMSG());
             chat.setNewMSG(null);
@@ -37,13 +37,13 @@ public class ChatFacade
         return false;
     }
     
-    private JSONObject toJSON(Message msg){
+    public JSONObject toJSON(Message msg){
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("sender", msg.getSender());
         jsonObj.put("msg", msg.getMsg());
         return jsonObj;
     }
-    private JSONObject toJSON(Message msg, Chat chat){
+    public JSONObject toJSON(Message msg, Chat chat){
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("sender", msg.getSender());
         jsonObj.put("msg", msg.getMsg());
@@ -51,7 +51,7 @@ public class ChatFacade
         return jsonObj;
     }
         
-    private String getNewMessage(int id){
+    public String getNewMessage(int id){
         Chat chat = getChat(id);
         if(chat.getNewMSG() != null) 
             isNewer(chat);
@@ -60,7 +60,7 @@ public class ChatFacade
         
     }
     
-    private String getHistory(int id){
+    public String getHistory(int id){
         Chat chat = getChat(id);
         JSONArray jsonArr = new JSONArray();
         JSONObject jsonObj = new JSONObject();
@@ -70,7 +70,7 @@ public class ChatFacade
         return jsonObj.toString();
     }
     
-    private Message createMSG(String msg, int userID, int chatID){
+    public Message createMSG(String msg, int userID, int chatID){
         Chat chat = em.find(Chat.class, chatID);
         Message newMSG = new Message(msg, em.find(User.class, userID),
                 chat);
@@ -79,8 +79,22 @@ public class ChatFacade
         isNewer(chat);
         return newMSG;
     }
+    public Message createMSG(String msg, User user, Chat chat){
+        Message newMSG = new Message(msg, user,
+                chat);
+        chat.addHistory(newMSG);
+        chat.setNewMSG(newMSG);
+        isNewer(chat);
+        return newMSG;
+    }
+    public Message createMSG(JSONObject jsonMSG){
+        String msg = jsonMSG.getAsString("msg");
+        User user = em.find(User.class, jsonMSG.get("sender"));
+        Chat chat = em.find(Chat.class, jsonMSG.get("chat"));
+        return createMSG(msg, user, chat);
+    }
     
-    private Message fromJSON(JSONObject jsonMSG){
+    public Message fromJSON(JSONObject jsonMSG){
         String msg = jsonMSG.getAsString("msg");
         User user = em.find(User.class, jsonMSG.get("sender"));
         Chat chat = em.find(Chat.class, jsonMSG.get("chat"));
@@ -88,4 +102,11 @@ public class ChatFacade
         return new Message (msg, user, chat);
     }
 
+    public boolean receive(int id){
+        Chat chat = getChat(id);
+        Message newest = chat.getHistory().get(chat.getHistory().size()-1);
+        if(newest == chat.getLastMSG()) chat.setNewMSG(newest);
+        return chat.getNewMSG() != null;
+    }
+    
 }
