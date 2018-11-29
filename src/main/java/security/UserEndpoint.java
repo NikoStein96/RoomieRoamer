@@ -99,9 +99,8 @@ public class UserEndpoint
         User savedUser = uf.getUser(id);
         if(newUser.getDesc()!=null)
             savedUser.setDesc(newUser.getDesc());
-        uf.editUser(savedUser);
-           UserDTO u = new UserDTO(savedUser);
-        return Response.ok().entity(gson.toJson(u)).build();
+        UserDTO uDTO = uf.editUser(savedUser);
+        return Response.ok().entity(gson.toJson(uDTO)).build();
     }
     @DELETE
     @Path("/{id}")

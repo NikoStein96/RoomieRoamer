@@ -16,6 +16,7 @@ class MatchedUsers extends Component {
             <div class="eight wide column">
               <img
                 src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
+                alt="dfdsfdsfds"
                 class="ui image"
                 alt="missingPicture"
               />
@@ -23,6 +24,7 @@ class MatchedUsers extends Component {
             <div class="eight wide column">
               <img
                 src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
+                alt="dfdsfdsfds"
                 class="ui image"
                 alt="missingPicture"
               />
@@ -32,6 +34,7 @@ class MatchedUsers extends Component {
             <div class="eight wide column">
               <img
                 src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
+                alt="dfdsfdsfds"
                 class="ui image"
                 alt="missingPicture"
               />
@@ -39,6 +42,7 @@ class MatchedUsers extends Component {
             <div class="eight wide column">
               <img
                 src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
+                alt="dfdsfdsfds"
                 class="ui image"
                 alt="missingPicture"
               />

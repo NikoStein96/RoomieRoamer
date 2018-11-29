@@ -91,14 +91,6 @@ public class DemoResource
     {
         return new UserFacade().getPomaAsString();
     }
-//   @PUT
-//    @Path("/{id}")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response updateCustomer( String content, @PathParam("id") int id){
-//        User u = gson.fromJson(content, User.class);
-//        u.updateUser(id, u);
-//        return Response.ok().entity(gson.toJson(u)).build();
-//    } 
+
    
 }
