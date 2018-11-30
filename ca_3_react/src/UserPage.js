@@ -7,13 +7,20 @@ export default class UserPage extends Component {
       this.state = { dataFromServer: "", id: ""}
       this.state = { value: "" };
     }
-  
-  // fetch user and admin details from backend
-/*    componentDidMount() {
-      facade.fetchData().then(res => this.setState({ dataFromServer: res }));
-      facade.fetchDataAdmin().then(res => this.setState({ dataFromServer: res}));
-    }
-*/
+
+assignUserLiked(){
+
+  var URL = "http://localhost:8080/RoomieRoamer/api/User/like/"+id+"/"+idPressed;
+      fetch(URL)
+        .then(response => response.json())
+        .then(json => {
+          console.log(json);
+          
+        
+});
+}
+
+
     handleChangeUP = event => {
       console.log("this is event.target.value: "+event.target.value);
       this.setState({ value: event.target.value });
@@ -24,8 +31,8 @@ componentWillMount(){
    
 componentDidUpdate() {
 
-
-  var URL = "http://localhost:8080/RoomieRoamer/api/User/1/poma";
+id=1;
+  var URL = "http://localhost:8080/RoomieRoamer/api/User/"+id+"/poma";
       fetch(URL)
         .then(response => response.json())
         .then(json => {
@@ -44,14 +51,8 @@ componentDidUpdate() {
         catch{
           document.getElementById("desc1").innerHTML = "Out of luck. Can't find a user";
         }
-      
-    
-      
 });
-
-
 }
-
 
     handleSubmitUP() {
       var URL = "http://localhost:8080/RoomieRoamer/api/User/1/poma";
@@ -75,7 +76,6 @@ componentDidUpdate() {
       }
       });
     };
-  
 
 likeThat(){
   nr++;
