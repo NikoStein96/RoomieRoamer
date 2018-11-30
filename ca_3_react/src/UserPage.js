@@ -9,17 +9,14 @@ export default class UserPage extends Component {
     }
 
 assignUserLiked(){
-
+  
   var URL = "http://localhost:8080/RoomieRoamer/api/User/like/"+id+"/"+idPressed;
       fetch(URL)
         .then(response => response.json())
         .then(json => {
           console.log(json);
-          
-        
 });
 }
-
 
     handleChangeUP = event => {
       console.log("this is event.target.value: "+event.target.value);
@@ -31,7 +28,6 @@ componentWillMount(){
    
 componentDidUpdate() {
 
-id=1;
   var URL = "http://localhost:8080/RoomieRoamer/api/User/"+id+"/poma";
       fetch(URL)
         .then(response => response.json())
@@ -55,7 +51,8 @@ id=1;
 }
 
     handleSubmitUP() {
-      var URL = "http://localhost:8080/RoomieRoamer/api/User/1/poma";
+      
+      var URL = "http://localhost:8080/RoomieRoamer/api/User/"+id+"/poma";
       fetch(URL)
         .then(response => response.json())
         .then(json => {
@@ -115,7 +112,8 @@ dislikeThat(){
     }
   }
   let nr = -2;
-
-  document.getElementById("likeThat").addEventListener("click", );
+  let id = 1;
+  let idPressed = 2;
+  //document.getElementById("likeThat").addEventListener("click", );
  
       
