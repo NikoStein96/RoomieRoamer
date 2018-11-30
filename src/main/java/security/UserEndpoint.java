@@ -10,6 +10,7 @@ import com.google.gson.GsonBuilder;
 import entity.User;
 import entity.UserDTO;
 import entity.UserFacade;
+import java.sql.SQLException;
 import javax.persistence.Persistence;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -74,8 +75,9 @@ public class UserEndpoint
     @GET
     @Path("/allasmap")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUsers() {
-        return Response.ok().entity(gson.toJson(uf.getUsers())).build();
+
+    public Response getUsers() throws SQLException, ClassNotFoundException {
+        return Response.ok().entity(uf.getUsers()).build();
     }
     
     @POST
@@ -97,9 +99,8 @@ public class UserEndpoint
         User savedUser = uf.getUser(id);
         if(newUser.getDesc()!=null)
             savedUser.setDesc(newUser.getDesc());
-        uf.editUser(savedUser);
-           UserDTO u = new UserDTO(savedUser);
-        return Response.ok().entity(gson.toJson(u)).build();
+        UserDTO uDTO = uf.editUser(savedUser);
+        return Response.ok().entity(gson.toJson(uDTO)).build();
     }
     @DELETE
     @Path("/{id}")
@@ -107,5 +108,20 @@ public class UserEndpoint
     public Response deleteUser(@PathParam("id")int id) {
         User us = uf.deleteUser(id);
         return Response.ok().entity(gson.toJson(us)).build();
+    }
+    
+    @PUT
+    @Path("/like/{id}/{idPressed}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addLiked(@PathParam("id")int id, @PathParam("idPressed") int idPressed) throws Exception{
+        UserDTO uDTO = uf.assignUserLike(id, idPressed);
+        return Response.ok().entity(gson.toJson(uDTO)).build();
+    }
+    @PUT
+    @Path("/ignore/{id}/{idPressed}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addIgnore(@PathParam("id")int id, @PathParam("idPressed") int idPressed) throws Exception{
+        UserDTO uDTO = uf.assignUserIgnore(id, idPressed);
+        return Response.ok().entity(gson.toJson(uDTO)).build();
     }
 }

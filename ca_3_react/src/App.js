@@ -4,10 +4,9 @@ import DummyData from "./DummyData";
 import UserPage from "./UserPage";
 import Home from "./Home";
 import FindUser from "./FindUser";
-import AdminGetAllUsers from "./AdminGetAllUsers";
 import GetUserDesc from "./GetUserDesc";
 import MatchedUsers from "./components/MatchedUsers";
-
+import Admin from "./Admin"
 import { HashRouter as Router, Route, Link } from "react-router-dom";
 
 class LogIn extends Component {
@@ -75,7 +74,7 @@ const App = () => (
       <Route path="/dummydata" exact component={DummyData} />
       <Route path="/finduser" exact component={FindUser} />
       <Route path="/messages" exact component={MatchedUsers} />
-      <Route path="/admin" exact component={AdminGetAllUsers} />
+      <Route path="/admin" exact component={Admin} />
       <Route path="/getuserdesc" exact component={GetUserDesc} />
     </div>
   </Router>
