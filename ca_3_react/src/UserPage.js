@@ -4,7 +4,7 @@ import facade from "./apiFacade";
 export default class UserPage extends Component {
     constructor(props) {
       super(props);
-      this.state = { dataFromServer: "",}
+      this.state = { dataFromServer: "", id: ""}
       this.state = { value: "" };
     }
   
@@ -23,6 +23,8 @@ componentWillMount(){
 }
    
 componentDidUpdate() {
+
+
   var URL = "http://localhost:8080/RoomieRoamer/api/User/1/poma";
       fetch(URL)
         .then(response => response.json())
@@ -30,7 +32,7 @@ componentDidUpdate() {
           console.log(json);
           try{
             if(json === undefined){
-              document.getElementById("desc1").innerHTML = "Out of luck. Can't find a user";
+              document.getElementById("desc1").innerHTML = "Out of luck. Can't find a user.";
             }
             else{
               console.log(nr);
@@ -42,9 +44,13 @@ componentDidUpdate() {
         catch{
           document.getElementById("desc1").innerHTML = "Out of luck. Can't find a user";
         }
-});
-}
+      
     
+      
+});
+
+
+}
 
 
     handleSubmitUP() {
@@ -71,11 +77,11 @@ componentDidUpdate() {
     };
   
 
-nrIncrement(){
+likeThat(){
   nr++;
   console.log(nr);
 }
-nrIncrement2(){
+dislikeThat(){
   nr++;
 }
 
@@ -92,12 +98,12 @@ nrIncrement2(){
         <br/>
         <br/>
         <br/>
-  <form onClick={this.nrIncrement()}>
+  <form onClick={this.likeThat()}>
         <input id="likebtn" type="submit" value="Like">
         </input>
   </form>
 
-    <form onClick={this.nrIncrement2()}>
+    <form onClick={this.dislikeThat()}>
         <input id="dislikebtn" type="submit" value="Dislike">
         </input>
   </form>
@@ -110,5 +116,6 @@ nrIncrement2(){
   }
   let nr = -2;
 
+  document.getElementById("likeThat").addEventListener("click", );
  
       
