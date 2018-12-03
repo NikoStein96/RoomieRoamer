@@ -4,7 +4,7 @@ import DummyData from "./DummyData";
 import UserPage from "./UserPage";
 import Home from "./Home";
 import MatchedUsers from "./components/MatchedUsers";
-import Admin from "./Admin"
+import Admin from "./Admin";
 import { HashRouter as Router, Route, Link } from "react-router-dom";
 
 class LogIn extends Component {
@@ -54,12 +54,11 @@ const App = () => (
           <li>
             <Link to="/messages">Messages</Link>
           </li>
-          <li>  
+          <li>
             <Link to="/admin/">Admin</Link>
           </li>
         </ul>
       </nav>
-
 
       <Route path="/" exact component={Home} />
       <Route path="/login" exact component={LogIn} />

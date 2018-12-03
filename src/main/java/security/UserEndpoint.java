@@ -52,7 +52,6 @@ public class UserEndpoint
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed("user")
     public Response getPomaByID(@PathParam("id") Integer id) {
-        //System.out.println(gson.toJson(uf.getPomaAsJSON(id)));
         UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
         return Response.ok().entity((uf.getPomaAsJSON(Integer.parseInt(up.getId())))).build();
     }
