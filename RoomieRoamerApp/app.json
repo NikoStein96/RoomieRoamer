@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "ca3native",
+    "name": "StarWarsApp",
     "description": "This project is really great.",
-    "slug": "ca3native",
+    "slug": "StarWarsApp",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": ["ios", "android"],
