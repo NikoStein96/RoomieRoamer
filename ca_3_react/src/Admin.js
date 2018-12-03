@@ -47,8 +47,9 @@ class Admin extends Component {
                         <th>Delete Description</th>
                     </tr>
                 </thead>
+                
                 {all.map(value => <AllData key={value.id} knap={this.deleteDesc} input={value} />)}
-
+                
 
             </div>
         )
@@ -56,7 +57,7 @@ class Admin extends Component {
 }
 
 // items to be printed from the database
-const AllData = (props) => <table>
+const AllData = (props) => 
 
     <tbody>
         <tr>
@@ -66,7 +67,7 @@ const AllData = (props) => <table>
             <td> <button type="button" onClick={() => props.knap(props.input.id)} >Delete Desc</button> </td>
         </tr>
     </tbody>
-</table>
+
 
 
 
