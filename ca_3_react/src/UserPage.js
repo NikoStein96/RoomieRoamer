@@ -104,7 +104,7 @@ dislikeThat(){
         <input id="dislikebtn" type="submit" value="Dislike">
         </input>
   </form>
-      <p id="desc1" align="center">No potential matches yet</p>
+      <p id="desc1" align="center">Loading ...</p>
      
       
       </div>  

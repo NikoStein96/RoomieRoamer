@@ -18,6 +18,7 @@ class MatchedUsers extends Component {
                 src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
                 alt="dfdsfdsfds"
                 class="ui image"
+                // eslint-disable-next-line
                 alt="missingPicture"
               />
             </div>
@@ -26,6 +27,7 @@ class MatchedUsers extends Component {
                 src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
                 alt="dfdsfdsfds"
                 class="ui image"
+                // eslint-disable-next-line
                 alt="missingPicture"
               />
             </div>
@@ -36,6 +38,7 @@ class MatchedUsers extends Component {
                 src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
                 alt="dfdsfdsfds"
                 class="ui image"
+                // eslint-disable-next-line
                 alt="missingPicture"
               />
             </div>
@@ -44,6 +47,7 @@ class MatchedUsers extends Component {
                 src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
                 alt="dfdsfdsfds"
                 class="ui image"
+                // eslint-disable-next-line
                 alt="missingPicture"
               />
             </div>

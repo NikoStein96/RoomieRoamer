@@ -3,7 +3,6 @@ import facade from "./apiFacade";
 import DummyData from "./DummyData";
 import UserPage from "./UserPage";
 import Home from "./Home";
-import FindUser from "./FindUser";
 import GetUserDesc from "./GetUserDesc";
 import MatchedUsers from "./components/MatchedUsers";
 import Admin from "./Admin"
@@ -54,28 +53,21 @@ const App = () => (
             <Link to="/dummydata/">DummyData</Link>
           </li>
           <li>
-            <Link to="/finduser/">FindUser</Link>
-          </li>
-          <li>
             <Link to="/messages">Messages</Link>
           </li>
           <li>  
             <Link to="/admin/">Admin</Link>
           </li>
-          <li>
-            <Link to="/getuserdesc/">GetUserDesc</Link>
-          </li>
         </ul>
       </nav>
+
 
       <Route path="/" exact component={Home} />
       <Route path="/login" exact component={LogIn} />
       <Route path="/userpage" exact component={UserPage} />
       <Route path="/dummydata" exact component={DummyData} />
-      <Route path="/finduser" exact component={FindUser} />
       <Route path="/messages" exact component={MatchedUsers} />
       <Route path="/admin" exact component={Admin} />
-      <Route path="/getuserdesc" exact component={GetUserDesc} />
     </div>
   </Router>
 );
