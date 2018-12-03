@@ -48,11 +48,13 @@ public class UserEndpoint
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     
     @GET
-    @Path("/{id}/poma")
+    @Path("/poma")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("user")
     public Response getPomaByID(@PathParam("id") Integer id) {
         //System.out.println(gson.toJson(uf.getPomaAsJSON(id)));
-        return Response.ok().entity((uf.getPomaAsJSON(id))).build();
+        UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
+        return Response.ok().entity((uf.getPomaAsJSON(Integer.parseInt(up.getId())))).build();
     }
     
     @GET
