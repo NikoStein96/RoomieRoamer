@@ -11,7 +11,7 @@ import entity.User;
 import entity.UserDTO;
 import entity.UserFacade;
 import java.sql.SQLException;
-import javax.persistence.Persistence;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -23,6 +23,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 
 /**
@@ -36,6 +37,9 @@ public class UserEndpoint
 
     @Context
     private UriInfo context;
+    
+    @Context
+    SecurityContext securityContext;
 
     public UserEndpoint()
     {
@@ -58,6 +62,17 @@ public class UserEndpoint
         System.out.println(gson.toJson(uf.getUserDTO(id)));
         return Response.ok().entity(gson.toJson(uf.getUserDTO(id))).build();
     }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("test")
+    @RolesAllowed("user")
+    public String getFromUser()
+    {
+        UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
+        return "\"Hello from USER: " + up.getId() + "\"";
+    }
+    
     @GET
     @Path("/{id}/desc")
     @Produces(MediaType.APPLICATION_JSON)
