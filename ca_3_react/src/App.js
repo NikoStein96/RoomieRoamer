@@ -3,7 +3,6 @@ import facade from "./apiFacade";
 import DummyData from "./DummyData";
 import UserPage from "./UserPage";
 import Home from "./Home";
-import GetUserDesc from "./GetUserDesc";
 import MatchedUsers from "./components/MatchedUsers";
 import Admin from "./Admin"
 import { HashRouter as Router, Route, Link } from "react-router-dom";
