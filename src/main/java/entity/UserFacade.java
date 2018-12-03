@@ -190,7 +190,10 @@ public User getUser(Integer id) {
         EntityManager em = emf.createEntityManager();
         User user;
         try {
-            user = em.find(User.class, username);
+            Query q = em.createQuery("SELECT u.id FROM User u WHERE u.userName=:username");
+            q.setParameter("username", username);
+            int id = (int) q.getSingleResult();
+            user = em.find(User.class, id);
             if (user == null || !user.verifyPassword(password)) {
                 throw new AuthenticationException("Invalid user name or password");
             }
