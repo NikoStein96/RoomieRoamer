@@ -12,13 +12,13 @@ export default class FindUser extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    var URL = "http://localhost:8084/RoomieRoamer/api/User/" + this.state.value;
+    var URL = "http://localhost:8080/RoomieRoamer/api/User/" + this.state.value;
     fetch(URL)
       .then(response => response.json())
       .then(json => {
-        console.log(json);
-        if(json.name === undefined){
-          document.getElementById("info").innerHTML = "No user with that userID";
+        console.log(json.results[this.state.value].Name);
+        if(json.Name === undefined){
+          document.getElementById("info1").innerHTML = "No user with that userID";
         }
         else{
           
@@ -32,11 +32,11 @@ export default class FindUser extends Component {
         
         document.getElementById("info1").innerHTML =
         // eslint-disable-next-line
-        json.name;
+        json.Name;
         
         document.getElementById("info2").innerHTML =
         // eslint-disable-next-line
-        json.mass;
+        json.Mass;
 
         }
       });
@@ -47,7 +47,7 @@ export default class FindUser extends Component {
       <form onSubmit={this.handleSubmit}>
         
 
-          <input type="submit" value="Submit" />
+          <input type="number" />
 
         <input type="submit" value="Submit" />
         <h3>We will fetch user with ID: {this.state.value}</h3>
