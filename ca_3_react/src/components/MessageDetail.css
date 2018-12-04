@@ -55,7 +55,7 @@
 }
 .msg_history {
   height: 65vh;
-  width: 84%;
+  width: 75%;
   overflow-y: auto;
   border-style: solid;
   border-color: rgb(20, 75, 20);
