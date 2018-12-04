@@ -15,9 +15,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
+import security.UserPrincipal;
 /**
  * REST Web Service
  *
@@ -29,6 +31,8 @@ public class ChatEndpoint
 
     @Context
     private UriInfo context;
+    @Context
+    SecurityContext securityContext;
 
     /**
      * Creates a new instance of ChatEndpoint
@@ -48,10 +52,11 @@ public class ChatEndpoint
     }
 
     @GET
-    @Path("/chat/{id}/{id2}")
+    @Path("/chat/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getChatSessionByID(@PathParam("id") Integer id, @PathParam("id2") Integer id2) {
-        return Response.ok().entity(cf.getChatSession(id, id2)).build();
+    public Response getChatSessionByID(@PathParam("id") Integer id) {
+        UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
+        return Response.ok().entity(cf.getChatSession(Integer.parseInt(up.getId()), id)).build();
     }
     
     @GET
