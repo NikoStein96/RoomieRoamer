@@ -48,10 +48,10 @@ public class ChatEndpoint
     }
 
     @GET
-    @Path("/{id}/chat")
+    @Path("/chat/{id}/{id2}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getChatByID(@PathParam("id") Integer id) {
-        return Response.ok().entity(cf.getChat(id)).build();
+    public Response getChatSessionByID(@PathParam("id") Integer id, @PathParam("id2") Integer id2) {
+        return Response.ok().entity(cf.getChatSession(id, id2)).build();
     }
     
     @GET
@@ -61,12 +61,6 @@ public class ChatEndpoint
         return Response.ok().entity(cf.getNewMessage(id)).build();
     }
     
-    @GET
-    @Path("/{id}/update")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getUpdateByID(@PathParam("id") Integer id) {
-        return Response.ok().entity(cf.receive(id)).build();
-    }
     @POST
     @Path("/{id}/send")
     @Consumes(MediaType.APPLICATION_JSON)

@@ -38,7 +38,7 @@ public class Message implements Serializable
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "msg", length = 20)
+    @Column(name = "msg", length = 255)
     private String msg;
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="sender")
@@ -70,6 +70,12 @@ public class Message implements Serializable
     {
         return id;
     }
+
+    public Chat getChat()
+    {
+        return chat;
+    }
+    
 
     public String getMsg()
     {

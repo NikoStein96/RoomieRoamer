@@ -12,10 +12,13 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -36,11 +39,11 @@ private static final long serialVersionUID = 1L;
     @NotNull
     @Column(name = "chat_id")
     private Integer id;
-    @OneToMany
-    @Basic(optional = false)
+    
+    @OneToOne
     private User user1;
-    @OneToMany
-    @Basic(optional = false)
+    
+    @OneToOne
     private User user2;
     @Transient
     private List<Message> history = new ArrayList();
@@ -69,6 +72,11 @@ private static final long serialVersionUID = 1L;
     public List<Message> getHistory()
     {
         return history;
+    }
+
+    public void setHistory(List<Message> history)
+    {
+        this.history = history;
     }
 
     public void addHistory(Message msg)
