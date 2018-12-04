@@ -11,42 +11,38 @@ class MatchedUsers extends Component {
           <div className="ui visible inverted left vertical sidebar menu">
             <div className="ui segment users">
               <img
-                src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
-                alt="dfdsfdsfds"
-                class="ui image"
-                // eslint-disable-next-line
-                alt="missingPicture"
+                className="ui avatar image"
+                src="https://www.w3schools.com/howto/img_avatar.png"
+                alt="avatar"
               />
               <span>Username</span>
             </div>
             <div className="ui segment users">
               <img
-                src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
-                alt="dfdsfdsfds"
-                class="ui image"
-                // eslint-disable-next-line
-                alt="missingPicture"
+                className="ui avatar image"
+                src="https://www.w3schools.com/howto/img_avatar.png"
+                alt="avatar"
               />
               <span>Username</span>
             </div>
             <div className="ui segment users">
               <img
-                src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
-                alt="dfdsfdsfds"
-                class="ui image"
-                // eslint-disable-next-line
-                alt="missingPicture"
+                className="ui avatar image"
+                src="https://www.w3schools.com/howto/img_avatar.png"
+                alt="avatar"
               />
               <span>Username</span>
             </div>
-            <div class="eight wide column">
-              <img
-                src="https://react.semantic-ui.com/images/wireframe/paragraph.png"
-                alt="dfdsfdsfds"
-                class="ui image"
-                // eslint-disable-next-line
-                alt="missingPicture"
-              />
+          </div>
+          <div className="pusher">
+            <div className="ui basic segment" />
+            <MessageDetail />
+            <div className="ui form">
+              <div className="field">
+                <h2>Type a message</h2>
+                <textarea rows="8" cols="50" />
+                <i class="circular large paper plane icon" />
+              </div>
             </div>
           </div>
         </div>
