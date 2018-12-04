@@ -1,5 +1,6 @@
 package entity;
 
+import Resources.DBAccess.Connector;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -7,9 +8,17 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import exceptions.AuthenticationException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import static java.time.Clock.offset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.Query;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
 
 /**
  * TODO: Liste over potentielle personer du kan like Liste over LIKEDE personer
@@ -50,22 +59,54 @@ public class UserFacade {
             em.close();
         }        
     }
-    
-    public List<UserDTO> getUsers() {
+
+     public String getUsers() throws SQLException, ClassNotFoundException {
+        EntityManager em = emf.createEntityManager();
+        JSONArray JA = new JSONArray();
+        //em.getTransaction().begin();
+        List<User> users = new ArrayList();
+        Boolean keepRunning = true;
+        int counter = 1;
+        while(keepRunning){
+            users.add(em.find(User.class, counter));
+            keepRunning = (em.find(User.class, ++counter) != null);
+        }
+        //em.getTransaction().commit();
+        for (User user : users) {
+            JSONObject item = new JSONObject();
+            item.put("id" , user.getId());
+            item.put("Name", user.getUserName());
+            item.put("Desc", user.getDesc());
+           // item.put("Desc", em.find(User.class, "desc"));
+            
+            JA.add(item);
+//            UserDTO uDTO = new UserDTO(user);
+//            JA.add(uDTO);
+        }
+        JSONObject res = new JSONObject();
+        res.put("Result", JA);
+        em.close();
+        return res.toJSONString();
+    }
+
+
+
+public User getUser(Integer id) {
         EntityManager em = emf.createEntityManager();
         
-        List<UserDTO> usersDTO = new ArrayList();
+        try {
+            em.getTransaction().begin();
+            User u = em.find(User.class, id);
+
+            return u;
+            
+        } finally {
+            em.close();
         
-        em.getTransaction().begin();
-        List<User> users = em.createQuery("Select p from User p").getResultList();
-        em.getTransaction().commit();
-        for (User user : users) {
-            UserDTO uDTO = new UserDTO(user);
-            usersDTO.add(uDTO);
         }
-        em.close();
-        return usersDTO;
-    }
+        }        
+    
+
     
     public List<User> getUsersByRoleAdmin() {
         EntityManager em = emf.createEntityManager();
@@ -110,7 +151,7 @@ public class UserFacade {
         }
     }
     
-    public User editUser(User user) {
+    public UserDTO editUser(User user) {
         EntityManager em = emf.createEntityManager();
         
         try {
@@ -119,8 +160,10 @@ public class UserFacade {
             if (u != null) {
                 u = user;
                 em.merge(u);
+                UserDTO uDTO = new UserDTO(u);
                 em.getTransaction().commit();
-                return u;
+                return uDTO
+                        ;
             }
         } finally {
             em.close();
@@ -147,7 +190,10 @@ public class UserFacade {
         EntityManager em = emf.createEntityManager();
         User user;
         try {
-            user = em.find(User.class, username);
+            Query q = em.createQuery("SELECT u.id FROM User u WHERE u.userName=:username");
+            q.setParameter("username", username);
+            int id = (int) q.getSingleResult();
+            user = em.find(User.class, id);
             if (user == null || !user.verifyPassword(password)) {
                 throw new AuthenticationException("Invalid user name or password");
             }
@@ -209,6 +255,25 @@ public class UserFacade {
         return poma;
     }
     
+    
+   public String getPomaAsJSON(int id){
+       EntityManager em = emf.createEntityManager();
+       User user = em.find(User.class, id);
+       JSONArray jsnArr = new JSONArray();
+        for(User usr: getPoma(user)){
+            JSONObject jsn = new JSONObject();
+            
+            jsn.put("Id", usr.getId());
+            jsn.put("Name", usr.getUserName());
+            jsn.put("Desc", usr.getDesc());
+            jsnArr.add(jsn);
+        }
+        JSONObject jon = new JSONObject();
+        jon.put("results", jsnArr);
+        
+        return jon.toJSONString();
+   } 
+   
     public String getPomaAsString()
     {
         EntityManager em = emf.createEntityManager();
@@ -218,6 +283,54 @@ public class UserFacade {
             res += u.getUserName() + "\n";
         }
         return res;
+    }
+            
+    
+    public UserDTO assignUserLike(int userID, int likedID) throws Exception{
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        
+        User loggedIn = em.find(User.class, userID);
+        User liked = em.find(User.class, likedID);
+        UserDTO uDTO;
+        
+        if(liked.getLiked().contains(loggedIn)){
+            loggedIn.addMatched(liked);
+            liked.addMatched(loggedIn);
+            uDTO = new UserDTO(loggedIn);
+            em.merge(loggedIn);
+        }
+        
+        if(!loggedIn.getLiked().contains(liked)){
+        loggedIn.addLiked(liked);
+        uDTO = new UserDTO(loggedIn);
+        em.merge(loggedIn);
+        } else {
+            throw new Exception("Relation between users already exist");
+        }
+        em.getTransaction().commit();
+        em.close();
+        return uDTO;
+    }
+    
+    public UserDTO assignUserIgnore(int userID, int ignoredID) throws Exception{
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        
+        User loggedIn = em.find(User.class, userID);
+        User ignored = em.find(User.class, ignoredID);
+        UserDTO uDTO;
+        
+        if(!loggedIn.getIgnored().contains(ignored)){
+        loggedIn.addIgnored(ignored);
+        uDTO = new UserDTO(loggedIn);
+        em.merge(loggedIn);
+        } else {
+            throw new Exception("Relation between users already exist");
+        }
+        em.getTransaction().commit();
+        em.close();
+        return uDTO;
     }
     
 }

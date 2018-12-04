@@ -1,5 +1,9 @@
 package rest;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -11,10 +15,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 import Resources.*;
+import entity.User;
 import entity.UserFacade;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Response;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.ParseException;
@@ -27,6 +33,7 @@ import net.minidev.json.parser.ParseException;
 @Path("info")
 public class DemoResource
 {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @Context
     private UriInfo context;
@@ -84,4 +91,6 @@ public class DemoResource
     {
         return new UserFacade().getPomaAsString();
     }
+
+   
 }

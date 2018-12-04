@@ -79,9 +79,10 @@ public class JWTAuthenticationFilter implements ContainerRequestFilter {
      if (new Date().getTime() > signedJWT.getJWTClaimsSet().getExpirationTime().getTime()) {
        throw new AuthenticationException("Your Token is no longer valid");
      }
+     String id = signedJWT.getJWTClaimsSet().getClaim("id").toString();
      String roles = signedJWT.getJWTClaimsSet().getClaim("roles").toString();
      String username = signedJWT.getJWTClaimsSet().getClaim("username").toString();
-     return new UserPrincipal(username, roles);
+     return new UserPrincipal(id,username, roles);
    } else {
      throw new JOSEException("User could not be extracted from token");
    }

@@ -10,7 +10,8 @@ import com.google.gson.GsonBuilder;
 import entity.User;
 import entity.UserDTO;
 import entity.UserFacade;
-import javax.persistence.Persistence;
+import java.sql.SQLException;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -22,6 +23,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 
 /**
@@ -35,6 +37,9 @@ public class UserEndpoint
 
     @Context
     private UriInfo context;
+    
+    @Context
+    SecurityContext securityContext;
 
     public UserEndpoint()
     {
@@ -43,11 +48,33 @@ public class UserEndpoint
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     
     @GET
+    @Path("/poma")
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("user")
+    public Response getPomaByID(@PathParam("id") Integer id) {
+        //System.out.println(gson.toJson(uf.getPomaAsJSON(id)));
+        UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
+        return Response.ok().entity((uf.getPomaAsJSON(Integer.parseInt(up.getId())))).build();
+    }
+    
+    @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserByID(@PathParam("id") Integer id) {
+        System.out.println(gson.toJson(uf.getUserDTO(id)));
         return Response.ok().entity(gson.toJson(uf.getUserDTO(id))).build();
     }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("test")
+    @RolesAllowed("user")
+    public String getFromUser()
+    {
+        UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
+        return "\"Hello from USER: " + up.getId() + "\"";
+    }
+    
     @GET
     @Path("/{id}/desc")
     @Produces(MediaType.APPLICATION_JSON)
@@ -65,8 +92,9 @@ public class UserEndpoint
     @GET
     @Path("/allasmap")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUsers() {
-        return Response.ok().entity(gson.toJson(uf.getUsers())).build();
+
+    public Response getUsers() throws SQLException, ClassNotFoundException {
+        return Response.ok().entity(uf.getUsers()).build();
     }
     
     @POST
@@ -84,11 +112,12 @@ public class UserEndpoint
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateUserDesc( String content, @PathParam("id") int id)  {
-        UserDTO newUser = gson.fromJson(content, UserDTO.class);
-        UserDTO savedUser = uf.getUserDTO(id);
+        User newUser = gson.fromJson(content, User.class);
+        User savedUser = uf.getUser(id);
         if(newUser.getDesc()!=null)
             savedUser.setDesc(newUser.getDesc());
-        return Response.ok().entity(gson.toJson(savedUser)).build();
+        UserDTO uDTO = uf.editUser(savedUser);
+        return Response.ok().entity(gson.toJson(uDTO)).build();
     }
     @DELETE
     @Path("/{id}")
@@ -96,5 +125,20 @@ public class UserEndpoint
     public Response deleteUser(@PathParam("id")int id) {
         User us = uf.deleteUser(id);
         return Response.ok().entity(gson.toJson(us)).build();
+    }
+    
+    @PUT
+    @Path("/like/{id}/{idPressed}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addLiked(@PathParam("id")int id, @PathParam("idPressed") int idPressed) throws Exception{
+        UserDTO uDTO = uf.assignUserLike(id, idPressed);
+        return Response.ok().entity(gson.toJson(uDTO)).build();
+    }
+    @PUT
+    @Path("/ignore/{id}/{idPressed}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addIgnore(@PathParam("id")int id, @PathParam("idPressed") int idPressed) throws Exception{
+        UserDTO uDTO = uf.assignUserIgnore(id, idPressed);
+        return Response.ok().entity(gson.toJson(uDTO)).build();
     }
 }
