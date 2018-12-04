@@ -91,14 +91,17 @@ public class UserFacade {
 
 
 
-public User getUser(Integer id) {
+public UserDTO getUser(Integer id) {
         EntityManager em = emf.createEntityManager();
-        
+        UserDTO uDTO;
         try {
             em.getTransaction().begin();
             User u = em.find(User.class, id);
-
-            return u;
+            System.out.println(u);
+            uDTO = new UserDTO(u);
+            System.out.println(uDTO);
+            em.getTransaction().commit();
+            return uDTO;
             
         } finally {
             em.close();
@@ -223,11 +226,18 @@ public User getUser(Integer id) {
             for(int i = (max*iteration-29); i <= max*iteration; i++)
             {
                 User cur = em.find(User.class, i);
-                if(user.getId()!= cur.getId() &&(!user.getIgnored().contains(cur) && 
-                        (!user.getLiked().contains(cur) &&
-                        !user.getMatches().contains(cur))))
-                {
-                    curSet.add(cur);
+                if(user.getId()!= cur.getId()){
+                    System.out.println("NOT THE SAME AS ME!");
+                    if(!user.getIgnored().contains(cur.getId())){
+                        System.out.println("Not ignored");
+                        if(!user.getLiked().contains(cur.getId())){
+                            System.out.println("Not liked");
+                            if(!user.getMatches().contains(cur.getId())){
+                                System.out.println("Not matched");
+                                curSet.add(cur);
+                            }
+                        }
+                    }
                 }
             }
             

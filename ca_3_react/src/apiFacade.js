@@ -1,4 +1,4 @@
-const URL = "http://localhost:8084/RoomieRoamer";
+const URL = "http://localhost:8080/RoomieRoamer";
 
 function handleHttpErrors(res) {
   if (!res.ok) {
@@ -27,7 +27,7 @@ class ApiFacade {
   getToken = () => {
     return localStorage.getItem("jwtToken");
   };
-  // controls whether a person if logged in already
+  // controls whether a person is logged in already
   loggedIn = () => {
     const loggedIn = this.getToken() != null;
     return loggedIn;
