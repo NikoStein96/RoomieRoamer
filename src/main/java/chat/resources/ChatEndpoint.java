@@ -52,7 +52,7 @@ public class ChatEndpoint
     }
 
     @GET
-    @Path("/chat/{id}")
+    @Path("/{id}/chat")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getChatSessionByID(@PathParam("id") Integer id) {
         UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
