@@ -3,10 +3,10 @@ import facade from "./apiFacade";
 import DummyData from "./DummyData";
 import UserPage from "./UserPage";
 import Home from "./Home";
-import GetUserDesc from "./GetUserDesc";
 import MatchedUsers from "./components/MatchedUsers";
 import Admin from "./Admin"
-import { HashRouter as Router, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Route} from "react-router-dom";
+import "./Home.css";
 
 class LogIn extends Component {
   constructor(props) {
@@ -38,28 +38,7 @@ class LogIn extends Component {
 const App = () => (
   <Router>
     <div>
-      <nav>
-        <ul className="header">
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/userpage/">UserPage</Link>
-          </li>
-          <li>
-            <Link to="/dummydata/">DummyData</Link>
-          </li>
-          <li>
-            <Link to="/messages">Messages</Link>
-          </li>
-          <li>  
-            <Link to="/admin/">Admin</Link>
-          </li>
-        </ul>
-      </nav>
+ 
 
 
       <Route path="/" exact component={Home} />
