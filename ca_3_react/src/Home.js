@@ -42,7 +42,7 @@ export default class Home extends Component {
             <h4 id="greentext"> Roomie</h4>
             <h4 id="orangetext">Roamer</h4>
             <div className="loginBut">
-            <button class="ui green button" onClick={this.handleResetClick}>go back</button>
+            <button className="ui green button" onClick={this.handleResetClick}>go back</button>
             </div>
           </div>
           <Login />
@@ -57,7 +57,7 @@ export default class Home extends Component {
             <h4 id="greentext"> Roomie</h4>
             <h4 id="orangetext">Roamer</h4>
             <div className="loginBut">
-            <button class="ui green button" onClick={this.handleResetClick}>go back</button>
+            <button className="ui green button" onClick={this.handleResetClick}>go back</button>
             </div>
           <SignUp />
         </div>
@@ -73,7 +73,7 @@ export default class Home extends Component {
             <h4 id="greentext"> Roomie</h4>
             <h4 id="orangetext">Roamer</h4>
             <div className="loginBut">
-              <button class="ui green button" onClick={this.handleLoginClick}>log In</button>
+              <button className="ui green button" onClick={this.handleLoginClick}>log In</button>
             </div>
           </div>
 
@@ -85,7 +85,7 @@ export default class Home extends Component {
 
         </p>
           <div id="signupbutton">
-            <button class="ui orange button" onClick={this.handleSignUpClick} >Sign Up</button>
+            <button className="ui orange button" onClick={this.handleSignUpClick} >Sign Up</button>
           </div>
         </div>
 

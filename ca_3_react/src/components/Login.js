@@ -1,26 +1,38 @@
 import React, { Component } from "react"
+import facade from "../apiFacade";
 import "../Login.css";
 class Login extends Component {
+        constructor(props) {
+          super(props);
+          this.state = { username: "", password: "" };
+        }
+
+        login = evt => {
+            evt.preventDefault();
+            facade.login(this.state.username, this.state.password);
+          };
+          onChange = evt => {
+            this.setState({ [evt.target.id]: evt.target.value });
+          };
+          
     render() {
-        return (
-            <div id="loginform">
-                <div class="ui labeled input">
-                    <div class="ui label">
-                        Username
+        return ( <div>
+            <form className="ui form" onSubmit={this.login} onChange={this.onChange}>
+  <div className="field">
+    <label>Username</label>
+    <input type="text" name="username" placeholder="username" />
   </div>
-                    <input type="text" />
-                </div>
-                <br />
-                <div class="ui labeled input">
-                    <div class="ui label">
-                        Password
+  <div className="field">
+    <label>password</label>
+    <input type="password" name="password" placeholder="password" />
   </div>
-                    <input type="password" />
-                </div>
-                <div id="signupbutton">
-                    <button class="ui orange button" onClick={this.handleSignUpClick} >Sign Up</button>
-                </div>
+  <div className="field">
+  </div>
+  <button className="ui button" type="submit">login</button>
+</form>
+
             </div>
+  
 
         )
     }
