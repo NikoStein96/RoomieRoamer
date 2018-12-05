@@ -8,6 +8,7 @@ import Admin from "./Admin"
 import { HashRouter as Router, Route} from "react-router-dom";
 import "./Home.css";
 
+
 class LogIn extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +39,6 @@ class LogIn extends Component {
 const App = () => (
   <Router>
     <div>
- 
 
 
       <Route path="/" exact component={Home} />

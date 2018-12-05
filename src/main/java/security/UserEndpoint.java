@@ -52,10 +52,19 @@ public class UserEndpoint
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed("user")
     public Response getPomaByID(@PathParam("id") Integer id) {
-        //System.out.println(gson.toJson(uf.getPomaAsJSON(id)));
         UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
         return Response.ok().entity((uf.getPomaAsJSON(Integer.parseInt(up.getId())))).build();
     }
+    
+    @GET
+    @Path("/uid")
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("user")
+    public Response getLoggedInID() {
+        UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
+        return Response.ok().entity((gson.toJson(uf.getUser(Integer.parseInt(up.getId()))))).build();
+    }
+    
     
     @GET
     @Path("/{id}")
@@ -107,18 +116,18 @@ public class UserEndpoint
         return Response.ok().entity(gson.toJson(newUser)).build();
     }
 
-    @PUT
-    @Path("/{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response updateUserDesc( String content, @PathParam("id") int id)  {
-        User newUser = gson.fromJson(content, User.class);
-        User savedUser = uf.getUser(id);
-        if(newUser.getDesc()!=null)
-            savedUser.setDesc(newUser.getDesc());
-        UserDTO uDTO = uf.editUser(savedUser);
-        return Response.ok().entity(gson.toJson(uDTO)).build();
-    }
+//    @PUT
+//    @Path("/{id}")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response updateUserDesc( String content, @PathParam("id") int id)  {
+//        User newUser = gson.fromJson(content, User.class);
+//        User savedUser = uf.getUser(id);
+//        if(newUser.getDesc()!=null)
+//            savedUser.setDesc(newUser.getDesc());
+//        UserDTO uDTO = uf.editUser(savedUser);
+//        return Response.ok().entity(gson.toJson(uDTO)).build();
+//    }
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
