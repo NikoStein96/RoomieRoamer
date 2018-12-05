@@ -35,7 +35,7 @@ public class ChatFacade
         
     }
     
-    public int getChatSession(int user1, int user2){
+    public String getChatSession(int user1, int user2){
          EntityManager em = emf.createEntityManager();
         String qlString = "SELECT chat_id FROM chat c WHERE (c.USER1_user_id= " 
                 + user1 + " AND c.USER2_user_id = " + user2 + ") OR (c.USER1_user_id = " + user2 
@@ -50,7 +50,11 @@ public class ChatFacade
         }
         else
             id = Integer.parseInt(res.get(0).toString());
-        return id;
+        
+        JSONObject jsonObj = new JSONObject();
+        jsonObj.put("ID", id);
+        jsonObj.put("History", getHistory(em.find(Chat.class, id)));
+        return jsonObj.toJSONString();
     }
     
     private void updateChatHistory(int id){
@@ -128,16 +132,14 @@ public class ChatFacade
         jsonObj.put("results", jsonArr);
         return jsonObj.toJSONString();
     }
-    public String getHistory(Chat chat){
+    public JSONArray getHistory(Chat chat){
         updateChatHistory(chat);
         JSONArray jsonArr = new JSONArray();
-        JSONObject jsonObj = new JSONObject();
         for(Message msg : chat.getHistory()){
             JSONObject o = toJSON(msg);
             jsonArr.add(o);
         }
-        jsonObj.put("results", jsonArr);
-        return jsonObj.toJSONString();
+        return jsonArr;
     }
     
     private void persistMSG(Message msg){
