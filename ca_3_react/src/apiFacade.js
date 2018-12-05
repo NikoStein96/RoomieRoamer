@@ -1,4 +1,4 @@
-const URL = "http://localhost:8080/jwtbackend";
+const URL = "http://localhost:8084/RoomieRoamer";
 
 function handleHttpErrors(res) {
  if (!res.ok) {
@@ -45,7 +45,18 @@ class ApiFacade {
         return fetch(URL + "/api/login", options, true)
           .then(handleHttpErrors)
           .then(res => { this.setToken(res.token) })
-          .then(()=>{if(this.loggedIn) window.location.replace("#/userpage")});
+          .then(()=>{
+
+            var URL ="http://localhost:8084/RoomieRoamer/api/User/uid/";
+    fetch(URL, facade.makeOptions("GET", true))
+      .then(response => response.json())
+      .then(json => {
+        console.log("Current users ID who is logged in: " + json.id);
+        this.setState({ myId : json.id });
+      });
+            this.makeOptions("get", true)
+            if(this.loggedIn) window.location.replace("#/userpage")});
+
     }
 
     

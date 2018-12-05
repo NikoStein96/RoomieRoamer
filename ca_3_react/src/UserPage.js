@@ -10,7 +10,7 @@ export default class UserPage extends Component {
 
 assignUserLiked(){
   
-  var URL = "http://localhost:8080/RoomieRoamer/api/User/like/"+id+"/"+idPressed;
+  var URL = "http://localhost:8084/RoomieRoamer/api/User/like/"+id+"/"+idPressed;
       fetch(URL)
         .then(response => response.json())
         .then(json => {
@@ -28,7 +28,7 @@ componentWillMount(){
    
 componentDidUpdate() {
 
-  var URL = "http://localhost:8080/RoomieRoamer/api/User/"+id+"/poma";
+  var URL = "http://localhost:8084/RoomieRoamer/api/User/"+id+"/poma";
       fetch(URL)
         .then(response => response.json())
         .then(json => {
@@ -52,7 +52,7 @@ componentDidUpdate() {
 
     handleSubmitUP() {
       
-      var URL = "http://localhost:8080/RoomieRoamer/api/User/"+id+"/poma";
+      var URL = "http://localhost:8084/RoomieRoamer/api/User/"+id+"/poma";
       fetch(URL)
         .then(response => response.json())
         .then(json => {

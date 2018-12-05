@@ -9,6 +9,8 @@ class Login extends Component {
 
         login = evt => {
             evt.preventDefault();
+            console.log(this.state.username);
+            console.log(this.state.password);
             facade.login(this.state.username, this.state.password);
           };
           onChange = evt => {
@@ -20,11 +22,11 @@ class Login extends Component {
             <form className="ui form" onSubmit={this.login} onChange={this.onChange}>
   <div className="field">
     <label>Username</label>
-    <input type="text" name="username" placeholder="username" />
+    <input type="text" name="username" placeholder="username" id="username"/>
   </div>
   <div className="field">
     <label>password</label>
-    <input type="password" name="password" placeholder="password" />
+    <input type="password" name="password" placeholder="password" id="password" />
   </div>
   <div className="field">
   </div>
