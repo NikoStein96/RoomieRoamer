@@ -27,7 +27,7 @@ export default class UserPage extends Component {
     fetch(URL, facade.makeOptions("PUT", true))
     .then(response => response.json())
     .then(json => {
-      console.log("Diller"+json);
+      console.log("I liked "+json);
   })
 }
   userIgnored() {
@@ -35,7 +35,7 @@ export default class UserPage extends Component {
     fetch(URL, facade.makeOptions("PUT", true))
     .then(response => response.json())
     .then(json => {
-      console.log(json);
+      console.log("I disliked "+json);
   })
 }
 
@@ -71,7 +71,7 @@ export default class UserPage extends Component {
               this.setState({ targetId : json.results[nr].Id});
               }
             console.log("THIS IS THE ID: "+this.state.targetId);
-            console.log( "and id= " + json.results[nr].Id)
+            console.log( "and id should be= " + json.results[nr].Id)
             //nr--;
             
           }
