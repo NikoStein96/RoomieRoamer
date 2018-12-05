@@ -1,5 +1,6 @@
 const URL = "http://localhost:8084/RoomieRoamer";
 
+
 function handleHttpErrors(res) {
  if (!res.ok) {
    return Promise.reject({ status: res.status, fullError: res.json() })
@@ -47,19 +48,27 @@ class ApiFacade {
           .then(res => { this.setToken(res.token) })
           .then(()=>{
 
-            var URL ="http://localhost:8084/RoomieRoamer/api/User/uid/";
+            var URL ="http://localhost:8084/RoomieRoamer/api/User/ur/";
     fetch(URL, facade.makeOptions("GET", true))
       .then(response => response.json())
       .then(json => {
-        console.log("Current users ID who is logged in: " + json.id);
-        this.setState({ myId : json.id });
+        console.log(json)
+        if(this.loggedIn && json === "user "){ 
+          window.location.replace("#/userpage")}
+        if(this.loggedIn && json === "admin "){ 
+        window.location.replace("#/admin")
+        }
       });
-            this.makeOptions("get", true)
-            if(this.loggedIn) window.location.replace("#/userpage")});
+      });
+      //});
+            
+            
 
     }
 
+ 
     
+
  makeOptions(method,addToken,body) {
 
     
