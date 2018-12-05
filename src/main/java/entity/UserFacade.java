@@ -242,27 +242,27 @@ public class UserFacade {
                 for (User u : user.getIgnored()) {
                     if (u.getId() != cur.getId()) {
                         eligible = true;
-                        break;
                     } else {
                         eligible = false;
+                        break;
                     }
                 }
                 if (eligible) {
                     for (User u : user.getLiked()) {
                         if (u.getId() != cur.getId()) {
                             eligible = true;
-                            break;
                         } else {
                             eligible = false;
+                            break;
                         }
                     }
                     if (eligible) {
                         for (User u : user.getMatches()) {
                             if (u.getId() != cur.getId()) {
                                 eligible = true;
-                                break;
                             } else {
                                 eligible = false;
+                                break;
                             }
                         }
                     }
