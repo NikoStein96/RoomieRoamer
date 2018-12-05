@@ -1,8 +1,32 @@
 import React, { Component } from "react";
 import "./MessageDetail.css";
+import facade from "../apiFacade";
 
 class MessageDetail extends Component {
-  state = {};
+  state = { msgHistory: [] };
+
+  componentDidUpdate() {
+    if (this.state.msgHistory !== this.props.chatHistory) {
+      this.setState({ msgHistory: this.props.chatHistory });
+    }
+  }
+
+  renderMsgList = () => {
+    if (!this.state.msgHistory !== []) {
+      return this.state.msgHistory.map(message => {
+        if (message.sender !== this.props.pressed) {
+          return (
+            <div class="outgoing_msg">
+              <div class="sent_msg">
+                <p>{message.msg}</p>
+              </div>
+            </div>
+          );
+        }
+      });
+    }
+  };
+
   render() {
     return (
       <div>
@@ -25,6 +49,7 @@ class MessageDetail extends Component {
                 <span class="time_date"> 11:01 AM | June 9</span>
               </div>
             </div>
+            {this.renderMsgList()}
           </div>
         </div>
       </div>

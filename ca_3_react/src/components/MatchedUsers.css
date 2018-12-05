@@ -14,6 +14,7 @@
 .ui.segment.users {
   background: orange;
   margin: 0px;
+  cursor: pointer;
 }
 
 .ui.avatar.image {
