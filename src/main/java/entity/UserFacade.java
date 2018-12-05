@@ -299,6 +299,7 @@ public User getUser(Integer id) {
             liked.addMatched(loggedIn);
             uDTO = new UserDTO(loggedIn);
             em.merge(loggedIn);
+            em.merge(liked);
         }
         
         if(!loggedIn.getLiked().contains(liked)){
