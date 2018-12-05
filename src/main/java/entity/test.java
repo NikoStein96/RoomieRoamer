@@ -10,6 +10,7 @@ public class test {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
         EntityManager em = emf.createEntityManager();
         UserFacade uf = new UserFacade();
-        System.out.println(uf.getPoma(em.find(User.class, 1)));
+        int user = 1;
+        System.out.println(uf.getPoma(em.find(User.class, user)));
     }
 }
