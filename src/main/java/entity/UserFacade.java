@@ -309,9 +309,9 @@ public class UserFacade {
             if (count >= 3) {
                 poma.add(cur);
             }
-            if (poma.size() >= 20) {
-                break;
-            }
+//            if (poma.size() >= 20) {
+//                break;
+//            }
         }
 
         return poma;
