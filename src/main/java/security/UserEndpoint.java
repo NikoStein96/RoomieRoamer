@@ -54,6 +54,7 @@ public class UserEndpoint
     @GET
     @Path("/poma")
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed("user")
     public Response getPomaByID(@PathParam("id") Integer id) {
         UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
@@ -127,13 +128,41 @@ public class UserEndpoint
         return Response.ok().entity(uf.getUsers()).build();
     }
     
+    /*
+    JSON String example:
+    {
+	"first_name":"Alexis",
+	"password":"123",
+	"smoke": 0,
+        "pet": 1,
+        "music": 0,
+        "budget": 3,
+        "single": 1,
+        "area": 4,
+        "reason": 1,
+        "party": 1,
+        "clean": 1,
+        "sport": 1
+    }
+    */
+    
     @POST
+    @Path("/addUser")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response postUser(String json) throws ParseException {
-        return Response.ok().entity(gson.toJson(uf.addUser((JSONObject) parser.parse(json)))).build();
+        return Response.ok().entity(gson.toJson(uf.addUserWithQuestionnaire((JSONObject) parser.parse(json)))).build();
     }
-
+/*
+    @POST
+    @Path("/questionnaire")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response postQuestionnaire(String json) throws ParseException{
+        return Response.ok().entity(gson.toJson(uf.addQuestionnaire((JSONObject) parser.parse(json)))).build();
+    }
+    */
+    
 //    @PUT
 //    @Path("/{id}")
 //    @Consumes(MediaType.APPLICATION_JSON)
