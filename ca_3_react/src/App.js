@@ -3,8 +3,8 @@ import facade from "./apiFacade";
 import UserPage from "./UserPage";
 import Home from "./Home";
 import MatchedUsers from "./components/MatchedUsers";
-import Admin from "./Admin"
-import { BrowserRouter as Router, Route} from "react-router-dom";
+import Admin from "./Admin";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./Home.css";
 
 class LogIn extends Component {
@@ -41,7 +41,8 @@ const App = () => (
       <Route path="/login" exact component={LogIn} />
       <Route path="/userpage" exact component={UserPage} />
       <Route path="/messages" exact component={MatchedUsers} />
-      <Route path="/admin" exact component={Admin} />
+
+      <Route path="/admin" exact component={AdminGetAllUsers} />
     </div>
   </Router>
 );
