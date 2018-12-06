@@ -165,9 +165,11 @@ public class UserFacade {
         }
     }
     public User addUserWithQuestionnaire(JSONObject json) {
+
         EntityManager em = emf.createEntityManager();
             User user = new User(json.getAsString("first_name"), json.getAsString("password"));
         try {
+            addQuestionnaire(json);
             em.getTransaction().begin();
             user.setQuestionnaire(em.find(Questionnaire.class, em.createNativeQuery("SELECT max(ID) FROM questionnaire;").getResultList().get(0)));
             em.persist(user);
@@ -178,7 +180,7 @@ public class UserFacade {
         }
     }
     
-    public int addQuestionnaire(JSONObject json){
+    private int addQuestionnaire(JSONObject json){
         EntityManager em = emf.createEntityManager();
         Questionnaire res = new Questionnaire();
         res.setQuestionnaireSmoke(json.getAsNumber("smoke").equals(1));

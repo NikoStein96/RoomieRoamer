@@ -135,7 +135,7 @@ public class UserEndpoint
     public Response postUser(String json) throws ParseException {
         return Response.ok().entity(gson.toJson(uf.addUserWithQuestionnaire((JSONObject) parser.parse(json)))).build();
     }
-
+/*
     @POST
     @Path("/questionnaire")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -143,7 +143,7 @@ public class UserEndpoint
     public Response postQuestionnaire(String json) throws ParseException{
         return Response.ok().entity(gson.toJson(uf.addQuestionnaire((JSONObject) parser.parse(json)))).build();
     }
-    
+    */
     
 //    @PUT
 //    @Path("/{id}")
