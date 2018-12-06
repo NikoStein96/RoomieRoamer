@@ -50,7 +50,8 @@ export default class UserPage extends Component {
 
   handleChangeUP = event => {
     console.log("this is event.target.value: " + event.target.value);
-    this.setState({ value: event.target.value });
+    this.setState({ value: event.target.valu
+       });
   };
   componentWillMount() {
     this.handleSubmitUP();
@@ -67,7 +68,7 @@ export default class UserPage extends Component {
             document.getElementById("desc1").innerHTML =
               "Out of luck. Can't find a user.";
           } else {
-            console.log(nr);
+            //console.log(nr);
             document.getElementById("desc1").innerHTML =
               json.results[nr].Name +
               "</br>" +
@@ -100,7 +101,7 @@ export default class UserPage extends Component {
             document.getElementById("desc1").innerHTML =
               "Out of luck. Can't find a user";
           } else {
-            console.log(nr);
+            //console.log(nr);
             document.getElementById("desc1").innerHTML =
               json.results[nr].Name +
               "</br>" +
@@ -119,12 +120,14 @@ export default class UserPage extends Component {
       });
   }
 
-  likeThat = () => {
+  likeThat = (event) => {
+    event.preventDefault()
     this.userLiked();
     nr++;
     console.log(nr);
   };
-  dislikeThat = () => {
+  dislikeThat = (event) => {
+    event.preventDefault()
     this.userIgnored();
     nr++;
   };

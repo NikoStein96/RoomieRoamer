@@ -163,16 +163,16 @@ public class ChatFacade
         persistMSG(newMSG);
         return newMSG;
     }
-    public Message createMSG(String msg, User user, Chat chat){
+    public boolean createMSG(String msg, User user, Chat chat){
         Message newMSG = new Message(msg, user,
                 chat);
         chat.addHistory(newMSG);
         chat.setNewMSG(newMSG);
         isNewer(chat);
         persistMSG(newMSG);
-        return newMSG;
+        return true;
     }
-    public Message createMSG(JSONObject jsonMSG, int id){
+    public boolean createMSG(JSONObject jsonMSG, int id){
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         String msg = jsonMSG.getAsString("msg");
