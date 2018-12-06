@@ -1,4 +1,4 @@
-const URL = "http://localhost:8084/RoomieRoamer";
+const URL = "http://localhost:8080/RoomieRoamer";
 
 function handleHttpErrors(res) {
   if (!res.ok) {
@@ -50,7 +50,7 @@ class ApiFacade {
         this.setToken(res.token);
       })
       .then(() => {
-        var URL = "http://localhost:8084/RoomieRoamer/api/User/ur/";
+        var URL = "http://localhost:8080/RoomieRoamer/api/User/ur/";
         fetch(URL, facade.makeOptions("GET", true))
           .then(response => response.json())
           .then(json => {

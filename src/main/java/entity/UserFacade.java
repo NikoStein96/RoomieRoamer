@@ -1,6 +1,8 @@
 package entity;
 
 import Resources.DBAccess.Connector;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -135,15 +137,29 @@ public class UserFacade {
             em.close();
         }
     }
-
-    public User addUser(User u) {
+   
+    
+    
+    public User addUser(String name, String password) {
         EntityManager em = emf.createEntityManager();
-
+            User user = new User(name, password);
         try {
             em.getTransaction().begin();
-            em.persist(u);
+            em.persist(user);
             em.getTransaction().commit();
-            return u;
+            return user;
+        } finally {
+            em.close();
+        }
+    }
+    public User addUser(JSONObject json) {
+        EntityManager em = emf.createEntityManager();
+            User user = new User(json.getAsString("first_name"), json.getAsString("password"));
+        try {
+            em.getTransaction().begin();
+            em.persist(user);
+            em.getTransaction().commit();
+            return user;
         } finally {
             em.close();
         }

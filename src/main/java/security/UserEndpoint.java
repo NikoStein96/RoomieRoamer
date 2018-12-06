@@ -25,6 +25,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
+import net.minidev.json.parser.ParseException;
 
 /**
  * REST Web Service
@@ -45,11 +48,13 @@ public class UserEndpoint
     {
     }
     UserFacade uf = new UserFacade();
+    JSONParser parser = new JSONParser();
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     
     @GET
     @Path("/poma")
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed("user")
     public Response getPomaByID(@PathParam("id") Integer id) {
         UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
@@ -126,11 +131,8 @@ public class UserEndpoint
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response postUser(String content) {
-        User newUser = gson.fromJson(content, User.class);
-        System.out.println("New user: " + newUser);
-        uf.addUser(newUser);
-        return Response.ok().entity(gson.toJson(newUser)).build();
+    public Response postUser(String json) throws ParseException {
+        return Response.ok().entity(gson.toJson(uf.addUser((JSONObject) parser.parse(json)))).build();
     }
 
 //    @PUT

@@ -150,7 +150,7 @@ public class ChatFacade
         em.close();
     }
     
-    public Message createMSG(String msg, int userID, int chatID){
+    public boolean createMSG(String msg, int userID, int chatID){
          EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         Chat chat = em.find(Chat.class, chatID);
@@ -161,7 +161,7 @@ public class ChatFacade
         chat.setNewMSG(newMSG);
         isNewer(chat);
         persistMSG(newMSG);
-        return newMSG;
+        return true;
     }
     public boolean createMSG(String msg, User user, Chat chat){
         Message newMSG = new Message(msg, user,
