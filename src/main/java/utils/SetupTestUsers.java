@@ -1,5 +1,6 @@
 package utils;
 
+import chat.entity.*;
 import entity.*;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
@@ -18,8 +19,8 @@ public class SetupTestUsers {
     // throw new UnsupportedOperationException("REMOVE THIS LINE, WHEN YOU HAVE READ WARNING");
     
        
-//    em.getTransaction().begin();
-//    Role userRole = new Role("user");
+    em.getTransaction().begin();
+   // Role userRole = new Role("user");
 //    Role adminRole = new Role("admin");
 //    Interest smoking = new Interest("smoking");
 //    Interest soccer = new Interest("soccer");
@@ -28,17 +29,14 @@ public class SetupTestUsers {
 //    Interest gaming = new Interest("gaming");
 //    Interest music = new Interest("music");
 //    Interest art = new Interest("art");
-//    
-//    User user = new User("user", "test123");
-//    user.addRole(userRole);
-    Budget low = new Budget("2000-3000");
-    Budget medium = new Budget("3000-4000");
-    Budget high = new Budget("4000-5000");
-    CleanLevel messy = new CleanLevel("Messy");
-    CleanLevel tidy = new CleanLevel("Tidy");
-    Reason money = new Reason("Money");
-    Reason friends = new Reason("Friends");
-    User user = new User("Charlie", "lol123", "Testing", "picRef");
+//    Budget low = new Budget("2000-3000");
+//    Budget medium = new Budget("3000-4000");
+//    Budget high = new Budget("4000-5000");
+//    CleanLevel messy = new CleanLevel("Messy");
+//    CleanLevel tidy = new CleanLevel("Tidy");
+//    Reason money = new Reason("Money");
+//    Reason friends = new Reason("Friends");
+//    User user = new User("Charlie", "lol123", "Testing", "picRef");
    // user.addRole(userRole);
 //    User admin = new User("admin", "test123");
 //    admin.addRole(adminRole);
@@ -55,7 +53,7 @@ public class SetupTestUsers {
 //    em.persist(music);
 //    em.persist(art);
 //    em.persist(user);
-    em.persist(user);
+ /*   em.persist(user);
     em.persist(low);
     em.persist(medium);
     em.persist(high);
@@ -137,6 +135,7 @@ public class SetupTestUsers {
       for (int i = 0; i < users.size(); i++) {
          em.persist(users.get(i)); 
       }
+      */
     em.getTransaction().commit();
     em.close();
 //    System.out.println("PW: " + user.getUserPass());

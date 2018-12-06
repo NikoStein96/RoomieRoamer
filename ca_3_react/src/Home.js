@@ -1,29 +1,95 @@
 import React, { Component } from "react"
-
+import "./Home.css";
+import logo from './assets/img/smalllogo.png';
+import Login from './components/Login'
+import SignUp from './components/SignUp'
 
 export default class Home extends Component {
-    constructor(props) {
-      super(props);
-      this.state = { loggedIn: false }
+  constructor(props) {
+    super(props);
+    this.state = {
+      loggedIn: false,
+      loginbuttonpressed: false,
+      signupbuttonpressed: false,
     }
+  }
+
+  handleLoginClick = () => {
+    this.setState({
+      loginbuttonpressed: true
+    });
+  }
+
+  handleSignUpClick = () => {
+    this.setState({
+      signupbuttonpressed: true
+    });
+  }
+  handleResetClick = () => {
+    this.setState({
+      signupbuttonpressed: false,
+      loginbuttonpressed: false
+
+    });
+  }
   // welcome message with description
-    render() {
+  render() {
+    if (this.state.loginbuttonpressed === true) {
       return (
-        <div>
-        Welcome to our site.<br></br>
-        This is the front page. Here we will guide you through the different options you have of navigating around the place.<br></br>
-        Up top is a navigation bar where you have "Home", "Login", "UserPage" and "DummyData". Any of these links can be clicked,<br></br> 
-        but to get the full experience you will have to log in.<br></br>
-        Try with the username "user" and password "test123", or as admin "admin" and "test123".<br></br>
-        Clicking on the login-button will redirect you to our "UserPage" with additional info now.<br></br>
-        You will be greeted with a message confirming that you have logged in successfully.<br></br>
-        On the "DummyData" page is a list of 20 items being listed from top to bottom. Theres two button available to increase or decrease<br></br>
-        the next pages of data being rendered. A maximum of 1000 items are available to go through.
-        Thank you for testing!<br></br>
-        <br></br>
-        - GIF/JIF
+        <div className="landing">
+          <div className="logoAndTyped">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h4 id="greentext"> Roomie</h4>
+            <h4 id="orangetext">Roamer</h4>
+            <div className="loginBut">
+            <button className="ui green button" onClick={this.handleResetClick}>go back</button>
+            </div>
+          </div>
+          <Login />
         </div>
-  
+      )
+    }
+    if (this.state.signupbuttonpressed === true) {
+      return (
+        <div className="landing">
+          <div className="logoAndTyped">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h4 id="greentext"> Roomie</h4>
+            <h4 id="orangetext">Roamer</h4>
+            <div className="loginBut">
+            <button className="ui green button" onClick={this.handleResetClick}>go back</button>
+            </div>
+          <SignUp />
+        </div>
+        </div>
+      )
+    }
+    else {
+      return (
+        <div className="landing">
+
+          <div className="logoAndTyped">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h4 id="greentext"> Roomie</h4>
+            <h4 id="orangetext">Roamer</h4>
+            <div className="loginBut">
+              <button className="ui green button" onClick={this.handleLoginClick}>log In</button>
+            </div>
+          </div>
+
+          <p id="maintext">
+            Do you seak a roomate? <br />
+            Then you came to the right place <br />
+            finding a roomate has never been easier  <br />
+            just start liking and find candidates
+
+        </p>
+          <div id="signupbutton">
+            <button className="ui orange button" onClick={this.handleSignUpClick} >Sign Up</button>
+          </div>
+        </div>
+
       );
     }
   }
+}

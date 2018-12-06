@@ -1,4 +1,4 @@
-const URL = "http://localhost:8080/RoomieRoamer";
+const URL = "http://localhost:8084/RoomieRoamer";
 
 function handleHttpErrors(res) {
   if (!res.ok) {
@@ -27,7 +27,7 @@ class ApiFacade {
   getToken = () => {
     return localStorage.getItem("jwtToken");
   };
-  // controls whether a person is logged in already
+  // controls whether a person if logged in already
   loggedIn = () => {
     const loggedIn = this.getToken() != null;
     return loggedIn;
@@ -49,10 +49,29 @@ class ApiFacade {
       .then(res => {
         this.setToken(res.token);
       })
-      .then(res => {
-        if (this.loggedIn) window.location.replace("#/userpage");
+      .then(() => {
+        var URL = "http://localhost:8084/RoomieRoamer/api/User/ur/";
+        fetch(URL, facade.makeOptions("GET", true))
+          .then(response => response.json())
+          .then(json => {
+            console.log(json);
+            if (this.loggedIn && json === "user ") {
+              window.location.replace("/userpage");
+            }
+            if (this.loggedIn && json === "admin ") {
+              window.location.replace("/admin");
+            }
+          });
       });
+    //});
   };
+
+  isAdmin() {
+    return true;
+  }
+  isUser() {
+    return true;
+  }
 
   makeOptions(method, addToken, body) {
     var opts = {

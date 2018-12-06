@@ -1,44 +1,52 @@
 import React, { Component } from "react";
 import facade from "./apiFacade";
+import "./UserPage.css";
+import { Link } from "react-router-dom";
 
 export default class UserPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { dataFromServer: "", id: "" };
     this.state = { value: "" };
-    this.state = { targetId: ""};
-    this.state = { myId: ""};
+    this.state = { targetId: "" };
+    this.state = { myId: "" };
   }
 
   // fetch to "GET" the ID of the user that is currently logged in
 
-  componentDidMount(){
-    var URL ="http://localhost:8080/RoomieRoamer/api/User/uid/";
+  componentDidMount() {
+    var URL = "http://localhost:8084/RoomieRoamer/api/User/uid/";
     fetch(URL, facade.makeOptions("GET", true))
       .then(response => response.json())
       .then(json => {
         console.log("Current users ID who is logged in: " + json.id);
-        this.setState({ myId : json.id });
+        this.setState({ myId: json.id });
       });
   }
 
   userLiked() {
-    var URL = "http://localhost:8080/RoomieRoamer/api/User/like/"+this.state.myId+"/"+this.state.targetId;
+    var URL =
+      "http://localhost:8084/RoomieRoamer/api/User/like/" +
+      this.state.myId +
+      "/" +
+      this.state.targetId;
     fetch(URL, facade.makeOptions("PUT", true))
-    .then(response => response.json())
-    .then(json => {
-      console.log("I liked "+json);
-  })
-}
+      .then(response => response.json())
+      .then(json => {
+        console.log("I liked " + json);
+      });
+  }
   userIgnored() {
-    var URL = "http://localhost:8080/RoomieRoamer/api/User/ignored/"+this.state.myId+"/"+this.state.targetId;
+    var URL =
+      "http://localhost:8084/RoomieRoamer/api/User/ignored/" +
+      this.state.myId +
+      "/" +
+      this.state.targetId;
     fetch(URL, facade.makeOptions("PUT", true))
-    .then(response => response.json())
-    .then(json => {
-      console.log("I disliked "+json);
-  })
-}
-
+      .then(response => response.json())
+      .then(json => {
+        console.log("I disliked " + json);
+      });
+  }
 
   handleChangeUP = event => {
     console.log("this is event.target.value: " + event.target.value);
@@ -49,7 +57,7 @@ export default class UserPage extends Component {
   }
 
   componentDidUpdate() {
-    var URL = "http://localhost:8080/RoomieRoamer/api/User/poma";
+    var URL = "http://localhost:8084/RoomieRoamer/api/User/poma";
     fetch(URL, facade.makeOptions("GET", true))
       .then(response => response.json())
       .then(json => {
@@ -66,27 +74,23 @@ export default class UserPage extends Component {
               json.results[nr].Id +
               "</br>" +
               json.results[nr].Desc;
-             // this.setState({ targetId : json.results[nr].Id });
-             if(json.results[nr].Id !== this.state.targetId){
-              this.setState({ targetId : json.results[nr].Id});
-              }
-            console.log("THIS IS THE ID: "+this.state.targetId);
-            console.log( "and id should be= " + json.results[nr].Id)
+            // this.setState({ targetId : json.results[nr].Id });
+            if (json.results[nr].Id !== this.state.targetId) {
+              this.setState({ targetId: json.results[nr].Id });
+            }
+            console.log("THIS IS THE ID: " + this.state.targetId);
+            console.log("and id should be= " + json.results[nr].Id);
             //nr--;
-            
           }
         } catch {
-          document.getElementById("desc1").innerHTML = "Out of luck. Can't find a user"; 
+          document.getElementById("desc1").innerHTML =
+            "Out of luck. Can't find a user";
         }
       });
   }
 
-
-
-
-
   handleSubmitUP() {
-    var URL = "http://localhost:8080/RoomieRoamer/api/User/poma";
+    var URL = "http://localhost:8084/RoomieRoamer/api/User/poma";
     fetch(URL, facade.makeOptions("GET", true))
       .then(response => response.json())
       .then(json => {
@@ -103,14 +107,14 @@ export default class UserPage extends Component {
               json.results[nr].Id +
               "</br>" +
               json.results[nr].Desc;
-              
-              this.setState({targetId: json.results[nr].Id})
-              console.log("THIS IS THE ID: "+this.state.targetId);
+
+            this.setState({ targetId: json.results[nr].Id });
+            console.log("THIS IS THE ID: " + this.state.targetId);
             //nr--;
-            
           }
         } catch {
-          document.getElementById("desc1").innerHTML = "Out of luck. Can't find a user";
+          document.getElementById("desc1").innerHTML =
+            "Out of luck. Can't find a user";
         }
       });
   }
@@ -119,35 +123,28 @@ export default class UserPage extends Component {
     this.userLiked();
     nr++;
     console.log(nr);
-  }
+  };
   dislikeThat = () => {
     this.userIgnored();
     nr++;
-  }
+  };
 
   render() {
     return (
-      <div>
-        Welcome to the userpage. If you are logged in, a message will be
-        displayed below with your role and name.
-        <div>{this.state.dataFromServer}</div>
-        <br />
-        <button onClick={facade.logout}>Logout</button>
-        <br />
-        <br />
-        <br />
-        <form onClick={this.likeThat}>
-          <input id="likebtn" type="submit" value="Like" />
-        </form>
-        <form onClick={this.dislikeThat}>
-          <input id="dislikebtn" type="submit" value="Dislike" />
-        </form>
-        <p id="desc1" align="center">
-          Loading ...
-        </p>
+      <div id="userpagebody">
+        <div id="funktionbox">
+          <p id="desc1">Loading ...</p>
+          <button onClick={facade.logout}>Logout</button>
+          <form onClick={this.likeThat}>
+            <input id="likebtn" type="submit" value="Like" />
+          </form>
+          <form onClick={this.dislikeThat}>
+            <input id="dislikebtn" type="submit" value="Dislike" />
+          </form>
+          <Link to="/messages">messages</Link>
+        </div>
       </div>
     );
   }
 }
 let nr = 0;
-
