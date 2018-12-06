@@ -172,11 +172,11 @@ public class ChatFacade
         persistMSG(newMSG);
         return newMSG;
     }
-    public Message createMSG(JSONObject jsonMSG){
-         EntityManager em = emf.createEntityManager();
+    public Message createMSG(JSONObject jsonMSG, int id){
+        EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         String msg = jsonMSG.getAsString("msg");
-        User user = em.find(User.class, jsonMSG.get("sender"));
+        User user = em.find(User.class, id);
         Chat chat = em.find(Chat.class, jsonMSG.get("chat"));
         em.close();
         return createMSG(msg, user, chat);

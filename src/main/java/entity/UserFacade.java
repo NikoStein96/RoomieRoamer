@@ -337,7 +337,7 @@ public User getUser(Integer id) {
         EntityManager em = emf.createEntityManager();
         List<UserDTO> dtoList = new ArrayList();
         try {
-            User u = em.find(User.class, 1);
+            User u = em.find(User.class, id);
             for (User user : u.getMatches()) {
                 UserDTO uDTO = new UserDTO(user);
                 dtoList.add(uDTO);

@@ -4,7 +4,13 @@ import MessageDetail from "./MessageDetail";
 import facade from "../apiFacade";
 
 class MatchedUsers extends Component {
-  state = { matchedList: [], clickedUser: 0, chatId: 0, msgHistory: [] };
+  state = {
+    matchedList: [],
+    clickedUser: 0,
+    chatId: 0,
+    msgHistory: [],
+    preparedMessage: ""
+  };
 
   componentDidMount() {
     fetch(
@@ -13,30 +19,44 @@ class MatchedUsers extends Component {
     )
       .then(response => response.json())
       .then(json => {
+        console.log(json);
         this.setState({ matchedList: json });
       });
   }
 
-  setClickedUserAndChatId = userId => {
+  componentDidUpdate() {
+    fetch(
+      `http://localhost:8084/RoomieRoamer/api/chat/${
+        this.state.clickedUser
+      }/chat`,
+      facade.makeOptions("GET", true)
+    )
+      .then(response => response.json())
+      .then(json => {
+        if (
+          this.state.msgHistory.length !== json.History.length &&
+          this.state.chatId === json.ID
+        ) {
+          this.setState({
+            chatId: json.ID,
+            msgHistory: json.History
+          });
+        }
+      });
+  }
+
+  getMatchHistory = userId => {
     fetch(
       `http://localhost:8084/RoomieRoamer/api/chat/${userId}/chat`,
       facade.makeOptions("GET", true)
     )
       .then(response => response.json())
       .then(json => {
-        this.setState({ chatId: json, clickedUser: userId });
-        this.getChatHistory(json);
-      });
-  };
-
-  getChatHistory = chatid => {
-    fetch(
-      `http://localhost:8084/RoomieRoamer/api/chat/${chatid}/history`,
-      facade.makeOptions("GET", true)
-    )
-      .then(response => response.json())
-      .then(json => {
-        this.setState({ msgHistory: json });
+        this.setState({
+          chatId: json.ID,
+          clickedUser: userId,
+          msgHistory: json.History
+        });
       });
   };
 
@@ -45,7 +65,7 @@ class MatchedUsers extends Component {
       return (
         <div
           onClick={() => {
-            this.setClickedUserAndChatId(user.id);
+            this.getMatchHistory(user.id);
           }}
           key={user.id}
           className="ui segment users"
@@ -61,22 +81,26 @@ class MatchedUsers extends Component {
     });
   };
 
-  /*
-  sendMessage = (event) =>{
+  sendMessage = event => {
+    event.preventDefault();
     fetch(
-      `http://localhost:8084/RoomieRoamer/api/chat/${this.state.clickedUser}/send`,
-      facade.makeOptions("POST", true), { body: {
-
-      }}
+      `http://localhost:8084/RoomieRoamer/api/chat/${
+        this.state.clickedUser
+      }/send`,
+      facade.makeOptions("POST", true, {
+        msg: this.state.preparedMessage,
+        chat: this.state.chatId
+      })
     )
       .then(response => response.json())
       .then(json => {
         console.log(json);
-        this.setState({ matchedList: json });
       });
-  }
-  }
-*/
+  };
+
+  handleChange = event => {
+    this.setState({ preparedMessage: event.target.value });
+  };
 
   render() {
     return (
@@ -91,12 +115,19 @@ class MatchedUsers extends Component {
               chatHistory={this.state.msgHistory}
               pressed={this.state.clickedUser}
             />
-            <div className="ui form">
-              <div className="field">
-                <h2>Type a message</h2>
-                <textarea rows="8" cols="50" />
-                <i class="circular large paper plane icon" />
-              </div>
+            <div className="formChat">
+              <form onSubmit={this.sendMessage}>
+                <textarea
+                  onChange={this.handleChange}
+                  value={this.state.preparedMessage}
+                  rows="8"
+                  cols="50"
+                  name="comment"
+                />
+                <button type="submit" class="ui inverted orange button">
+                  SEND
+                </button>
+              </form>
             </div>
           </div>
         </div>

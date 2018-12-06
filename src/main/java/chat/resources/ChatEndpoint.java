@@ -62,7 +62,7 @@ public class ChatEndpoint
     @RolesAllowed("user")
     public Response getChatSessionByID(@PathParam("id") Integer id) {
         UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
-        return Response.ok().entity(gson.toJson(cf.getChatSession(Integer.parseInt(up.getId()), id))).build();
+        return Response.ok().entity(cf.getChatSession(Integer.parseInt(up.getId()), id)).build();
     }
     
     @GET
@@ -79,6 +79,8 @@ public class ChatEndpoint
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed("user")
     public Response postCreateMsg(String json, @PathParam("id") Integer id) throws ParseException {
-        return Response.ok().entity(cf.createMSG((JSONObject) parser.parse(json))).build();
+        UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
+        int userId = Integer.parseInt(up.getId());
+        return Response.ok().entity(gson.toJson(cf.createMSG((JSONObject) parser.parse(json), userId))).build();
     }
 }

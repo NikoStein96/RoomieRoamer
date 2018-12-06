@@ -34,14 +34,6 @@
   margin-left: 25%;
 }
 
-textarea {
-  resize: none !important;
-  border: double 4px orange !important;
-  font-family: "Comic Sans MS", cursive, sans-serif;
-  width: 80% !important;
-  height: 15vh !important;
-}
-
 .ui.form i {
   position: absolute;
   bottom: 0%;
@@ -53,4 +45,18 @@ textarea {
 
 .ui.form h2 {
   color: orange !important;
+}
+
+.formChat {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.formChat button {
+  position: relative;
+  bottom: 60px;
+}
+
+.formChat textarea {
+  resize: none;
 }
