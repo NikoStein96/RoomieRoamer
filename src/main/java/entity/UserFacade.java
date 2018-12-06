@@ -334,4 +334,19 @@ public User getUser(Integer id) {
         return uDTO;
     }
     
+    public List<UserDTO> getMatchedUsers(int id) {
+        EntityManager em = emf.createEntityManager();
+        List<UserDTO> dtoList = new ArrayList();
+        try {
+            User u = em.find(User.class, id);
+            for (User user : u.getMatches()) {
+                UserDTO uDTO = new UserDTO(user);
+                dtoList.add(uDTO);
+            }
+        } finally {
+            em.close();
+        }
+        return dtoList;
+    }
+    
 }

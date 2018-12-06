@@ -58,6 +58,15 @@ public class UserEndpoint
     }
     
     @GET
+    @Path("/usermatches")
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("user")
+    public Response getUserMatches() {
+        UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
+        return Response.ok().entity((gson.toJson(uf.getMatchedUsers(Integer.parseInt(up.getId()))))).build();
+    }
+    
+    @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserByID(@PathParam("id") Integer id) {

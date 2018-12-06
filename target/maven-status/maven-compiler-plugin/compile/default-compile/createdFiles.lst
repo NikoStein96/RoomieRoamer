@@ -1,4 +1,6 @@
+chat\entity\Message.class
 entity\Reason_.class
+chat\entity\Message_.class
 exceptions\GenericExceptionMapper.class
 security\JWTSecurityContext.class
 security\SharedSecret.class
@@ -11,6 +13,7 @@ entity\Role_.class
 entity\UserDTO.class
 entity\CleanLevel.class
 entity\Questionnaire_.class
+chat\entity\Chat_.class
 Resources\DBAccess\dbData.class
 rest\ApplicationConfig.class
 security\UserPrincipal.class
@@ -28,14 +31,17 @@ Resources\test.class
 entity\Budget.class
 rest\DemoResource.class
 security\JWTAuthenticationFilter.class
+chat\entity\Chat.class
 Resources\DBAccess\Connector.class
 cors\CorsRequestFilter.class
 entity\User.class
 cors\CorsResponseFilter.class
 entity\test.class
+chat\resources\ChatEndpoint.class
 entity\Reason.class
 entity\RoleDTO.class
 entity\Questionnaire.class
 Resources\getData.class
 exceptions\Error.class
+chat\resources\ChatFacade.class
 entity\Role.class

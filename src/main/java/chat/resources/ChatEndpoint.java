@@ -5,6 +5,9 @@
  */
 package chat.resources;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
@@ -31,6 +34,7 @@ public class ChatEndpoint
 
     @Context
     private UriInfo context;
+    
     @Context
     SecurityContext securityContext;
 
@@ -43,6 +47,7 @@ public class ChatEndpoint
     
     ChatFacade cf = new ChatFacade();
     JSONParser parser = new JSONParser();
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
     
     @GET
     @Path("/{id}/history")
@@ -54,6 +59,7 @@ public class ChatEndpoint
     @GET
     @Path("/{id}/chat")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("user")
     public Response getChatSessionByID(@PathParam("id") Integer id) {
         UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
         return Response.ok().entity(cf.getChatSession(Integer.parseInt(up.getId()), id)).build();
@@ -62,6 +68,7 @@ public class ChatEndpoint
     @GET
     @Path("/{id}/newest")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("user")
     public Response getNewMsgByID(@PathParam("id") Integer id) {
         return Response.ok().entity(cf.getNewMessage(id)).build();
     }
@@ -70,7 +77,10 @@ public class ChatEndpoint
     @Path("/{id}/send")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("user")
     public Response postCreateMsg(String json, @PathParam("id") Integer id) throws ParseException {
-        return Response.ok().entity(cf.createMSG((JSONObject) parser.parse(json))).build();
+        UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
+        int userId = Integer.parseInt(up.getId());
+        return Response.ok().entity(gson.toJson(cf.createMSG((JSONObject) parser.parse(json), userId))).build();
     }
 }
