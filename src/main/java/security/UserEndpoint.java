@@ -54,6 +54,7 @@ public class UserEndpoint
     @GET
     @Path("/poma")
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed("user")
     public Response getPomaByID(@PathParam("id") Integer id) {
         UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
