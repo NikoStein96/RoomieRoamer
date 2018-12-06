@@ -1,11 +1,10 @@
-
 import React, { Component } from 'react';
 import './Admin.css';
 
 
 
 
-const url = 'http://localhost:8080/RoomieRoamer/api/User/allasmap';
+const url = 'http://localhost:8084/RoomieRoamer/api/User/allasmap';
 
 
 class Admin extends Component {
@@ -17,7 +16,7 @@ class Admin extends Component {
 
     }
     deleteDesc = (id) => {
-        fetch('http://localhost:8080/RoomieRoamer/api/User/' + id, {
+        fetch('http://localhost:8084/RoomieRoamer/api/User/' + id, {
   method: 'put',
   headers: {'Content-Type': 'application/json'},
   body: JSON.stringify({desc: ''})
@@ -37,9 +36,9 @@ class Admin extends Component {
     render() {
         let all = this.state.dataAll;
         return (
-            <div>
+            <div id="admin">
 
-                <thead>
+                <thead id="users">
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
@@ -47,8 +46,9 @@ class Admin extends Component {
                         <th>Delete Description</th>
                     </tr>
                 </thead>
+                
                 {all.map(value => <AllData key={value.id} knap={this.deleteDesc} input={value} />)}
-
+                
 
             </div>
         )
@@ -56,9 +56,9 @@ class Admin extends Component {
 }
 
 // items to be printed from the database
-const AllData = (props) => <table>
+const AllData = (props) => 
 
-    <tbody>
+    <tbody id="users">
         <tr>
             <td>{props.input.id}</td>
             <td>{props.input.Name}</td>
@@ -66,7 +66,7 @@ const AllData = (props) => <table>
             <td> <button type="button" onClick={() => props.knap(props.input.id)} >Delete Desc</button> </td>
         </tr>
     </tbody>
-</table>
+
 
 
 

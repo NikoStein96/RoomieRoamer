@@ -54,9 +54,9 @@ class ApiFacade {
       .then(json => {
         console.log(json)
         if(this.loggedIn && json === "user "){ 
-          window.location.replace("#/userpage")}
+          window.location.replace("/userpage")}
         if(this.loggedIn && json === "admin "){ 
-        window.location.replace("#/admin")
+        window.location.replace("/admin")
         }
       });
       });
@@ -66,7 +66,14 @@ class ApiFacade {
 
     }
 
- 
+ isAdmin(){
+
+  return true;
+ }
+ isUser(){
+
+  return true;
+ }
     
 
  makeOptions(method,addToken,body) {

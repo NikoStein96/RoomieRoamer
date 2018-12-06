@@ -9,8 +9,6 @@ class Login extends Component {
 
         login = evt => {
             evt.preventDefault();
-            console.log(this.state.username);
-            console.log(this.state.password);
             facade.login(this.state.username, this.state.password);
           };
           onChange = evt => {
@@ -19,6 +17,7 @@ class Login extends Component {
           
     render() {
         return ( <div>
+          <div id="loginform">
             <form className="ui form" onSubmit={this.login} onChange={this.onChange}>
   <div className="field">
     <label>Username</label>
@@ -30,9 +29,9 @@ class Login extends Component {
   </div>
   <div className="field">
   </div>
-  <button className="ui button" type="submit">login</button>
+  <button className="ui button" type="submit" id="subbut">login</button>
 </form>
-
+</div>
             </div>
   
 

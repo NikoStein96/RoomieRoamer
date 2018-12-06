@@ -33,7 +33,7 @@ h4{
     margin-right: 10px;
     float: right;
 }
-p{
+#maintext{
     font-size: 25px !important;
     color: white;
     margin-top: 20vh;
@@ -45,6 +45,10 @@ p{
 #signupbutton{
     text-align: center;
 }
+#container{
+    float: center;
+}
+
 
 
 
