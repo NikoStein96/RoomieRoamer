@@ -128,6 +128,24 @@ public class UserEndpoint
         return Response.ok().entity(uf.getUsers()).build();
     }
     
+    /*
+    JSON String example:
+    {
+	"first_name":"Alexis",
+	"password":"123",
+	"smoke": 0,
+        "pet": 1,
+        "music": 0,
+        "budget": 3,
+        "single": 1,
+        "area": 4,
+        "reason": 1,
+        "party": 1,
+        "clean": 1,
+        "sport": 1
+    }
+    */
+    
     @POST
     @Path("/addUser")
     @Consumes(MediaType.APPLICATION_JSON)
