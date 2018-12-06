@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import facade from "./apiFacade";
 import "./UserPage.css";
+import { Link } from "react-router-dom";
 
 export default class UserPage extends Component {
   constructor(props) {
@@ -140,6 +141,7 @@ export default class UserPage extends Component {
           <form onClick={this.dislikeThat}>
             <input id="dislikebtn" type="submit" value="Dislike" />
           </form>
+          <Link to="/messages">messages</Link>
         </div>
       </div>
     );

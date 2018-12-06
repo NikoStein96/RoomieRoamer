@@ -69,12 +69,12 @@ public class UserEndpoint
     @Path("/ur")
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({"admin", "user"})
-    
-    
     public Response getLoggedInRole() {
         UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
         return Response.ok().entity((gson.toJson(uf.getUser(Integer.parseInt(up.getId())).getRoleList()))).build();
+    }
 
+    @GET
     @Path("/usermatches")
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed("user")

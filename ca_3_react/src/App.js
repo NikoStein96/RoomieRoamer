@@ -42,7 +42,7 @@ const App = () => (
       <Route path="/userpage" exact component={UserPage} />
       <Route path="/messages" exact component={MatchedUsers} />
 
-      <Route path="/admin" exact component={AdminGetAllUsers} />
+      <Route path="/admin" exact component={Admin} />
     </div>
   </Router>
 );
