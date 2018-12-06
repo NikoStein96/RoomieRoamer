@@ -164,7 +164,24 @@ public class UserFacade {
             em.close();
         }
     }
-
+    
+    public User getUseredit(int id) {
+        EntityManager em = emf.createEntityManager();
+        
+        User u = null;
+        
+        try {
+            em.getTransaction().begin();
+            u = em.find(User.class, id);
+            em.getTransaction().commit();
+            return u;
+        }
+        finally
+        {
+            em.close();
+        }
+    }
+    
     public UserDTO editUser(User user) {
         EntityManager em = emf.createEntityManager();
 
