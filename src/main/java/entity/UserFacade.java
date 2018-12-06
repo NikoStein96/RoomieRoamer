@@ -164,6 +164,39 @@ public class UserFacade {
             em.close();
         }
     }
+    public User addUserWithQuestionnaire(JSONObject json) {
+        EntityManager em = emf.createEntityManager();
+            User user = new User(json.getAsString("first_name"), json.getAsString("password"));
+        try {
+            em.getTransaction().begin();
+            user.setQuestionnaire(em.find(Questionnaire.class, em.createNativeQuery("SELECT max(ID) FROM questionnaire;").getResultList().get(0)));
+            em.persist(user);
+            em.getTransaction().commit();
+            return user;
+        } finally {
+            em.close();
+        }
+    }
+    
+    public int addQuestionnaire(JSONObject json){
+        EntityManager em = emf.createEntityManager();
+        Questionnaire res = new Questionnaire();
+        res.setQuestionnaireSmoke(json.getAsNumber("smoke").equals(1));
+        res.setQuestionnairePet(json.getAsNumber("pet").equals(1));
+        res.setQuestionnaireSport(json.getAsNumber("sport").equals(1));
+        res.setQuestionnaireArea(em.find(CityInfo.class, json.getAsNumber("area")));
+        res.setQuestionnaireBudget(em.find(Budget.class, json.getAsNumber("budget")));
+        res.setQuestionnaireMusic(json.getAsNumber("music").equals(1));
+        res.setQuestionnaireReason(em.find(Reason.class, json.getAsNumber("reason")));
+        res.setQuestionnaireParty(json.getAsNumber("party").equals(1));
+        res.setQuestionnaireSingle(json.getAsNumber("single").equals(1));
+        res.setQuestionnaireClean(em.find(CleanLevel.class, json.getAsNumber("clean")));
+        em.getTransaction().begin();
+        em.persist(res);
+        em.getTransaction().commit();
+        em.close();
+        return res.getId();
+    }
 
     public UserDTO editUser(User user) {
         EntityManager em = emf.createEntityManager();
