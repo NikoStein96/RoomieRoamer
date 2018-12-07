@@ -25,6 +25,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
+import net.minidev.json.parser.ParseException;
 
 /**
  * REST Web Service
@@ -45,18 +48,37 @@ public class UserEndpoint
     {
     }
     UserFacade uf = new UserFacade();
+    JSONParser parser = new JSONParser();
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     
     @GET
     @Path("/poma")
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed("user")
     public Response getPomaByID(@PathParam("id") Integer id) {
-        //System.out.println(gson.toJson(uf.getPomaAsJSON(id)));
         UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
         return Response.ok().entity((uf.getPomaAsJSON(Integer.parseInt(up.getId())))).build();
     }
     
+    @GET
+    @Path("/uid")
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"admin", "user"})
+    public Response getLoggedInID() {
+        UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
+        return Response.ok().entity((gson.toJson(uf.getUser(Integer.parseInt(up.getId()))))).build();
+    }
+    
+    @GET
+    @Path("/ur")
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"admin", "user"})
+    public Response getLoggedInRole() {
+        UserPrincipal up = (UserPrincipal) securityContext.getUserPrincipal();
+        return Response.ok().entity((gson.toJson(uf.getUser(Integer.parseInt(up.getId())).getRoleList()))).build();
+    }
+
     @GET
     @Path("/usermatches")
     @Produces(MediaType.APPLICATION_JSON)
@@ -106,28 +128,53 @@ public class UserEndpoint
         return Response.ok().entity(uf.getUsers()).build();
     }
     
+    /*
+    JSON String example:
+    {
+	"first_name":"Alexis",
+	"password":"123",
+	"smoke": 0,
+        "pet": 1,
+        "music": 0,
+        "budget": 3,
+        "single": 1,
+        "area": 4,
+        "reason": 1,
+        "party": 1,
+        "clean": 1,
+        "sport": 1
+    }
+    */
+    
     @POST
+    @Path("/addUser")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response postUser(String content) {
-        User newUser = gson.fromJson(content, User.class);
-        System.out.println("New user: " + newUser);
-        uf.addUser(newUser);
-        return Response.ok().entity(gson.toJson(newUser)).build();
+    public Response postUser(String json) throws ParseException {
+        return Response.ok().entity(gson.toJson(uf.addUserWithQuestionnaire((JSONObject) parser.parse(json)))).build();
     }
-
-    @PUT
-    @Path("/{id}")
+/*
+    @POST
+    @Path("/questionnaire")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateUserDesc( String content, @PathParam("id") int id)  {
-        User newUser = gson.fromJson(content, User.class);
-        User savedUser = uf.getUser(id);
-        if(newUser.getDesc()!=null)
-            savedUser.setDesc(newUser.getDesc());
-        UserDTO uDTO = uf.editUser(savedUser);
-        return Response.ok().entity(gson.toJson(uDTO)).build();
+    public Response postQuestionnaire(String json) throws ParseException{
+        return Response.ok().entity(gson.toJson(uf.addQuestionnaire((JSONObject) parser.parse(json)))).build();
     }
+    */
+    
+//    @PUT
+//    @Path("/{id}")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response updateUserDesc( String content, @PathParam("id") int id)  {
+//        User newUser = gson.fromJson(content, User.class);
+//        User savedUser = uf.getUser(id);
+//        if(newUser.getDesc()!=null)
+//            savedUser.setDesc(newUser.getDesc());
+//        UserDTO uDTO = uf.editUser(savedUser);
+//        return Response.ok().entity(gson.toJson(uDTO)).build();
+//    }
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)

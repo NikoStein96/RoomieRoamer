@@ -30,6 +30,10 @@ public class UserPrincipal implements Principal {
         return id;
     }
 
+    public String getRoles() {
+        return roles.get(0);
+    }
+
     @Override
     public String getName() {
         return username;

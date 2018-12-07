@@ -80,6 +80,20 @@ public class Questionnaire implements Serializable
         this.id = id;
     }
 
+    public Questionnaire(boolean questionnaireSmoke, boolean questionnairePet, CityInfo questionnaireArea, boolean questionnaireSport, Budget questionnaireBudget, boolean questionnaireMusic, Reason questionnaireReason, boolean questionnaireParty, boolean questionnaireSingle, CleanLevel questionnaireClean) {
+        this.questionnaireSmoke = questionnaireSmoke;
+        this.questionnairePet = questionnairePet;
+        this.questionnaireArea = questionnaireArea;
+        this.questionnaireSport = questionnaireSport;
+        this.questionnaireBudget = questionnaireBudget;
+        this.questionnaireMusic = questionnaireMusic;
+        this.questionnaireReason = questionnaireReason;
+        this.questionnaireParty = questionnaireParty;
+        this.questionnaireSingle = questionnaireSingle;
+        this.questionnaireClean = questionnaireClean;
+    }
+    
+
     public Integer getId()
     {
         return id;
