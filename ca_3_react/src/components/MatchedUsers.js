@@ -9,7 +9,8 @@ class MatchedUsers extends Component {
     clickedUser: 0,
     chatId: 0,
     msgHistory: [],
-    preparedMessage: ""
+    preparedMessage: "",
+    messageState: false
   };
 
   componentDidMount() {
@@ -94,7 +95,7 @@ class MatchedUsers extends Component {
     )
       .then(response => response.json())
       .then(json => {
-        console.log(json);
+        this.setState({messageState: json})
       });
   };
 
