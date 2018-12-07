@@ -9,12 +9,13 @@ class MatchedUsers extends Component {
     clickedUser: 0,
     chatId: 0,
     msgHistory: [],
-    preparedMessage: ""
+    preparedMessage: "",
+    messageState: false
   };
 
   componentDidMount() {
     fetch(
-      "http://localhost:8080/RoomieRoamer/api/User/usermatches",
+      "http://localhost:8084/RoomieRoamer/api/User/usermatches",
       facade.makeOptions("GET", true)
     )
       .then(response => response.json())
@@ -26,7 +27,7 @@ class MatchedUsers extends Component {
 
   componentDidUpdate() {
     fetch(
-      `http://localhost:8080/RoomieRoamer/api/chat/${
+      `http://localhost:8084/RoomieRoamer/api/chat/${
         this.state.clickedUser
       }/chat`,
       facade.makeOptions("GET", true)
@@ -47,7 +48,7 @@ class MatchedUsers extends Component {
 
   getMatchHistory = userId => {
     fetch(
-      `http://localhost:8080/RoomieRoamer/api/chat/${userId}/chat`,
+      `http://localhost:8084/RoomieRoamer/api/chat/${userId}/chat`,
       facade.makeOptions("GET", true)
     )
       .then(response => response.json())
@@ -84,7 +85,7 @@ class MatchedUsers extends Component {
   sendMessage = event => {
     event.preventDefault();
     fetch(
-      `http://localhost:8080/RoomieRoamer/api/chat/${
+      `http://localhost:8084/RoomieRoamer/api/chat/${
         this.state.clickedUser
       }/send`,
       facade.makeOptions("POST", true, {
@@ -94,7 +95,7 @@ class MatchedUsers extends Component {
     )
       .then(response => response.json())
       .then(json => {
-        console.log(json);
+        this.setState({messageState: json})
       });
   };
 

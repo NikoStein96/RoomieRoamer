@@ -176,6 +176,20 @@ public class UserFacade {
             em.getTransaction().commit();
             return user;
         } finally {
+    
+    public User getUseredit(int id) {
+        EntityManager em = emf.createEntityManager();
+        
+        User u = null;
+        
+        try {
+            em.getTransaction().begin();
+            u = em.find(User.class, id);
+            em.getTransaction().commit();
+            return u;
+        }
+        finally
+        {
             em.close();
         }
     }

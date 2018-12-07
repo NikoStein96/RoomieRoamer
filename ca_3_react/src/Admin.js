@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './Admin.css';
+import logo from './assets/img/smalllogo.png';
+import facade from "./apiFacade";
+
 
 
 
@@ -37,7 +40,14 @@ class Admin extends Component {
         let all = this.state.dataAll;
         return (
             <div id="admin">
-
+<div className="logoAndTyped">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h4 id="greentext"> Roomie</h4>
+            <h4 id="orangetext">Roamer</h4>
+            <div className="loginBut">
+            <button className="ui green button" onClick={facade.logout}>logout</button>
+            </div>
+          </div>
                 <thead id="users">
                     <tr>
                         <th>ID</th>

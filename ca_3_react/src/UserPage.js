@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import facade from "./apiFacade";
 import "./UserPage.css";
 import { Link } from "react-router-dom";
+import EditDesc from './components/EditDesc'
 
 export default class UserPage extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ export default class UserPage extends Component {
 
   userLiked() {
     var URL =
-      "http://localhost:8080/RoomieRoamer/api/User/like/" +
+      "http://localhost:8084/RoomieRoamer/api/User/like/" +
       this.state.myId + "/" + this.state.targetId;
     fetch(URL, facade.makeOptions("PUT", true))
       .then(response => response.json())
@@ -30,7 +31,7 @@ export default class UserPage extends Component {
   }
   userIgnored() {
     var URL =
-      "http://localhost:8080/RoomieRoamer/api/User/ignore/" +
+      "http://localhost:8084/RoomieRoamer/api/User/ignore/" +
       this.state.myId + "/" + this.state.targetId;
     fetch(URL, facade.makeOptions("PUT", true))
       .then(response => response.json())
@@ -40,12 +41,13 @@ export default class UserPage extends Component {
   }
 
   handleChangeUP = event => {
+    console.log("this is event.target.value: " + event.target.value);
     this.setState({ value: event.target.value });
   };
 
 
   componentWillMount() {
-    var URL = "http://localhost:8080/RoomieRoamer/api/User/uid/";
+    var URL = "http://localhost:8084/RoomieRoamer/api/User/uid/";
     fetch(URL, facade.makeOptions("GET", true))
       .then(response => response.json())
       .then(json => {
@@ -75,8 +77,8 @@ export default class UserPage extends Component {
               if (this.state.pomaList.results[this.state.pLId].Id !== this.state.targetId) {
                 this.setState({ targetId: this.state.pomaList.results[this.state.pLId].Id });
               }
-            console.log("THIS IS THE ID: " + this.state.targetId);
-            console.log("and id should be= " + this.state.pomaList.results[this.state.pLId].Id);
+            //console.log("THIS IS THE ID: " + this.state.targetId);
+            //console.log("and id should be= " + this.state.pomaList.results[this.state.pLId].Id);
             
           }
         
@@ -89,11 +91,11 @@ export default class UserPage extends Component {
 
   handleSubmitUP() {
     console.log("CWM");
-    var URL = "http://localhost:8080/RoomieRoamer/api/User/poma";
+    var URL = "http://localhost:8084/RoomieRoamer/api/User/poma";
     fetch(URL, facade.makeOptions("GET", true))
       .then(response => response.json())
       .then(json => {
-        console.log("JSON: " + json)
+        //console.log("JSON: " + json)
         this.setState({ pomaList: json});
 
         try {
@@ -129,12 +131,14 @@ export default class UserPage extends Component {
       });
   }
 
-  likeThat = () => {
+  likeThat = (event) => {
+    event.preventDefault()
     this.userLiked();
     this.setState({pLId: this.state.pLId+1});
     console.log("PLID"+this.state.pLId);
   };
-  dislikeThat = () => {
+  dislikeThat = (event) => {
+    event.preventDefault()
     this.userIgnored();
     this.setState({pLId: this.state.pLId+1});
     console.log("PLID"+this.state.pLId);
@@ -154,6 +158,7 @@ export default class UserPage extends Component {
             <input id="dislikebtn" type="button" value="Dislike" />
           </form>
           <Link to="/messages">messages</Link>
+          <EditDesc id={this.state.myId}/>
         </div>
       </div>
     );

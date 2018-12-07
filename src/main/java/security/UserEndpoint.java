@@ -175,6 +175,19 @@ public class UserEndpoint
 //        UserDTO uDTO = uf.editUser(savedUser);
 //        return Response.ok().entity(gson.toJson(uDTO)).build();
 //    }
+
+    @PUT
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateUserDesc( String content, @PathParam("id") int id)  {
+        User newUser = gson.fromJson(content, User.class);
+        User savedUser = uf.getUseredit(id);
+        if(newUser.getDesc()!=null)
+            savedUser.setDesc(newUser.getDesc());
+        UserDTO uDTO = uf.editUser(savedUser);
+        return Response.ok().entity(gson.toJson(uDTO)).build();
+    }
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)

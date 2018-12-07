@@ -37,6 +37,7 @@ export default class Home extends Component {
     if (this.state.loginbuttonpressed === true) {
       return (
         <div className="landing">
+          
           <div className="logoAndTyped">
             <img src={logo} className="App-logo" alt="logo" />
             <h4 id="greentext"> Roomie</h4>
@@ -44,7 +45,7 @@ export default class Home extends Component {
             <div className="loginBut">
             <button className="ui green button" onClick={this.handleResetClick}>go back</button>
             </div>
-          </div>
+            </div>
           <Login />
         </div>
       )
