@@ -176,7 +176,10 @@ public class UserFacade {
             em.getTransaction().commit();
             return user;
         } finally {
-    
+            
+        }
+    }
+        
     public User getUseredit(int id) {
         EntityManager em = emf.createEntityManager();
         

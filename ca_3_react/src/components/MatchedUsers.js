@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./MatchedUsers.css";
 import MessageDetail from "./MessageDetail";
 import facade from "../apiFacade";
+import { Link } from "react-router-dom";
 
 class MatchedUsers extends Component {
   state = {
@@ -106,6 +107,7 @@ class MatchedUsers extends Component {
   render() {
     return (
       <div>
+        <Link to="/userpage">back</Link>
         <div className="ui bottom attached segment pushable">
           <div className="ui visible inverted left vertical sidebar menu">
             {this.showUserList()}
